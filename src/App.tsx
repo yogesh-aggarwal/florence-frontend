@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 import Signup from "./Routes/Signup";
@@ -10,17 +10,23 @@ import Listing from "./Routes/Listing";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="not-found" element={<div>Not found 404</div>} />
 
-      <Route path="/" element={<Home />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/product/:id" element={<Products />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-      <Route path="/listing/:category" element={<Listing />} />
-      <Route path="/listing" element={<Navigate to="/listing/trending" />} />
-    </Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<Products />} />
+
+        <Route path="/listing/:category" element={<Listing />} />
+        <Route path="/listing" element={<Navigate to="/listing/trending" />} />
+
+        <Route path="*" element={<Navigate to="/not-found" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

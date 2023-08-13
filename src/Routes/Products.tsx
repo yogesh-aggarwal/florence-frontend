@@ -6,5 +6,5 @@ export default function Products() {
   const params = useParams();
   console.log(params);
 
-  return <div className="ProductsComponent">Products</div>;
+  return <div className="ProductsComponent">Product {params.id}</div>;
 }
