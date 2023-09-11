@@ -10,8 +10,8 @@ import google from "../assets/google.png";
 export default function Login() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState<string>("hummingbird@florence.com");
-  const [password, setPassword] = useState<string>("Hello@123");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const [error, setError] = useState<string>("");

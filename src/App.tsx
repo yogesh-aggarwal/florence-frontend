@@ -12,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="not-found" element={<div>Not found 404</div>} />
+        <Route path="/not-found" element={<div>Not found 404</div>} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

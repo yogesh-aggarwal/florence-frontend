@@ -1,0 +1,209 @@
+#ProductsComponent {
+  
+  #body {
+    display: flex;
+    padding: 0 5%;
+
+    overflow-y: auto;
+    height: calc(100vh - 6rem - 1px);
+
+    #left {
+      display: flex;
+      position: sticky;
+      top: 0;
+
+      #slider {
+        padding-top: 5rem;
+        padding-right: 5vw;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1.5rem;
+        img {
+          width: 6rem;
+          height: 6rem;
+          border-radius: 1.5rem;
+          cursor: pointer;
+
+          &.active {
+            // border: 2px #8a33fd solid;
+            border: 5px solid transparent;
+            outline: 2px solid #000;
+          }
+        }
+
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2.5rem;
+          cursor: pointer;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 100%;
+
+          &:first-of-type {
+            margin-top: 2rem;
+          }
+
+          i {
+            font-size: 20px;
+          }
+
+          &:hover {
+            background: #000;
+            i {
+              color: #fff;
+            }
+          }
+
+          &.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+            transform: scale(0.9);
+          }
+        }
+      }
+      #image {
+        width: 35vw;
+        height: calc(100vh - 6rem - 1px);
+        display: inline-flex;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    #right {
+      padding-left: 5rem;
+      #top {
+        #category {
+          padding-top: 2rem;
+          padding-bottom: 1rem;
+          color: #7e7e7e;
+        }
+        #prodTitle {
+          font-weight: 700;
+          color: black;
+          font-size: 2.8rem;
+        }
+        #review {
+          display: flex;
+          padding-top: 1rem;
+          gap: 4rem;
+          #stars {
+            display: flex;
+            gap: 0.7rem;
+            #star {
+              color: rgb(211, 211, 3);
+              font-size: 18px;
+            }
+            #total {
+              font-size: 14px;
+              font-weight: 500;
+            }
+          }
+          #comments {
+            display: flex;
+            font-size: 14px;
+            font-weight: 500;
+            gap: 0.7rem;
+          }
+        }
+        #cart {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          padding-top: 4rem;
+          padding-bottom: 1.8rem;
+
+          #cartButton {
+            gap: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            color: #fff;
+            border: 2px black solid;
+
+            border-radius: 2rem;
+            padding: 0.7rem 7rem;
+
+            i {
+              font-size: 18px;
+              margin-top: 1px;
+            }
+          }
+
+          #priceButton {
+            border: 2px black solid;
+            gap: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            color: black;
+            font-weight: 500;
+            border-radius: 2rem;
+            padding: 0.7rem 7rem;
+            font-size: 18px;
+            i {
+              font-size: 18px;
+              margin-top: 1px;
+            }
+          }
+        }
+      }
+      #line {
+        height: 1px;
+        background: #eee;
+        margin-bottom: 4rem;
+        margin-top: 1.5rem;
+      }
+      #bottom {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+
+        .card {
+          display: flex;
+          align-items: center;
+          margin-bottom: 2rem;
+
+          width: 50%;
+          gap: 0.6rem;
+
+          i {
+            background: #eee;
+            border-radius: 3rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          span {
+            font-weight: 500;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .section {
+        border-radius: 8px;
+        padding: 2rem 0;
+        border-bottom: 1px solid #eee;
+
+        .heading {
+          font-size: 20px;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
