@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function Topbar() {
   const navigate = useNavigate();
   const params = useParams();
-  
+
   return (
     <>
       <div id="title">
@@ -15,6 +15,7 @@ export default function Topbar() {
             <div id="logo">
               <img src={Logo} alt="" />
             </div>
+            {/* <div id="florence">Florence</div> */}
             <div id="florence">Florence</div>
           </div>
           <div id="catagory">

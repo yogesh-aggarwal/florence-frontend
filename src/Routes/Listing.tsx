@@ -6,6 +6,7 @@ import { toTitleCase, useNetworkRequest } from "../Lib/helpers";
 import MultiRangeSlider from "../components/MultiRangeSlider";
 import Topbar from "../components/Topbar";
 import { Product_t } from "../Lib/Types/product";
+import { productsStore, useProducts } from "../Lib/State";
 
 function ProductCard(props: { product: Product_t }) {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function ProductCard(props: { product: Product_t }) {
 
 export default function Listing() {
   const params = useParams() as { category: string };
-  const [products, setProducts] = useState<Product_t[]>([]);
+  const products = useProducts();
 
   const isTrendingSection = params.category.toLowerCase() === "trending";
 
@@ -47,7 +48,7 @@ export default function Listing() {
     async (res) => {
       const body = await res.json();
       const allProducts = body["data"];
-      setProducts(allProducts);
+      productsStore.set(allProducts);
     },
     [params.category]
   );

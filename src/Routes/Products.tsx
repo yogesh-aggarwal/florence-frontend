@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 import { Product_t, ProductDescription_t } from "../Lib/Types/product";
+import { useNetworkRequest } from "../Lib/helpers";
+import { productsStore, useProducts } from "../Lib/State";
 
 function ProductInfo(props: {
   heading: string;
@@ -30,30 +32,30 @@ function ProductInfo(props: {
 
 export default function Product() {
   const params = useParams();
-  const [product, setProduct] = useState<Product_t | null>(null);
-  const [url, setUrl] = useState<string | null>(null);
-  const [cart, setCart] = useState(null);
+  const product = useProducts().find((product) => product._id === params.id);
+  const [url, setUrl] = useState<string | undefined>(product?.images[0]);
 
   const navigate = useNavigate();
+  const [cart, setCart] = useState(null);
 
-
-  useEffect(() => {
-    fetch("http://localhost:4000/getProductById", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        id: params.id,
-      }),
-    }).then(async (res) => {
-      console.log(params.id);
+  useNetworkRequest(
+    "POST",
+    "/getProductById",
+    { id: params.id },
+    async (res: Response) => {
       const body = await res.json();
-      const selectedProduct = body["data"];
-      setProduct(selectedProduct);
+      const selectedProduct = body["data"] as Product_t;
+
+      const products = productsStore.value({ clone: true });
+      products.push(selectedProduct);
+      productsStore.set(products);
+
+      // productsStore.set([...productsStore.value(), selectedProduct]);
+
       setUrl(selectedProduct.images[0]);
-    });
-  }, []);
+    },
+    []
+  );
 
   useEffect(() => {
     function worker(e: KeyboardEvent) {
