@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Topbar from "../components/Topbar";
 import { Product_t, ProductDescription_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
-import { productsStore, useProducts } from "../Lib/State";
+import { cartStore, productsStore, useCart, useProducts } from "../Lib/State";
+import { Cart } from "../Lib/cart";
 
 function ProductInfo(props: {
   heading: string;
@@ -36,7 +37,7 @@ export default function Product() {
   const [url, setUrl] = useState<string | undefined>(product?.images[0]);
 
   const navigate = useNavigate();
-  const [cart, setCart] = useState(null);
+  const cart = useCart();
 
   useNetworkRequest(
     "POST",
@@ -165,10 +166,38 @@ export default function Product() {
               </div>
             </div>
             <div id="cart">
-              <div id="cartButton" onClick={() => {}}>
-                <i className="fi fi-sr-shopping-cart"></i>
-                <div>Add to cart</div>
-              </div>
+              {!cart[product._id] ? (
+                <div
+                  id="cartButton"
+                  onClick={() => {
+                    Cart.add(product._id);
+                  }}
+                >
+                  <i className="fi fi-sr-shopping-cart"></i>
+                  <div>Add to cart</div>
+                </div>
+              ) : (
+                <div id="cartButton">
+                  <div
+                    className="icon"
+                    onClick={() => {
+                      Cart.add(product._id);
+                    }}
+                  >
+                    +
+                  </div>
+                  <div className="quantity">{cart[product._id]}</div>
+                  <div
+                    className="icon"
+                    onClick={() => {
+                      Cart.deleteProduct(product._id);
+                    }}
+                  >
+                    -
+                  </div>
+                </div>
+              )}
+
               <div id="priceButton">
                 <i>₹</i>
                 <div id="price">{product.price}</div>

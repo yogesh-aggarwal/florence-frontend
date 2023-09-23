@@ -1,232 +1,242 @@
 .CartComponent {
-	position: relative;
+  position: relative;
 
-	.body {
-		gap: 2rem;
-		display: flex;
-		padding: 0 5%;
+  .body {
+    gap: 2rem;
+    display: flex;
+    padding: 0 5%;
 
-		height: calc(100vh - 6rem - 1px);
-		overflow-y: auto;
+    height: calc(100vh - 6rem - 1px);
+    overflow-y: auto;
 
-		.left,
-		.right {
-			.heading {
-				font-size: 32px;
-				font-weight: 600;
-				padding: 2rem 0;
+    .left,
+    .right {
+      .heading {
+        font-size: 32px;
+        font-weight: 600;
+        padding: 2rem 0;
         background: #fff;
 
         position: sticky;
         top: 0;
         z-index: 10;
-			}
-		}
+      }
+    }
 
-		.left {
-			width: 100%;
+    .left {
+      width: 100%;
 
-			.cards {
-				gap: 2rem;
-				display: flex;
-				align-items: center;
-				flex-wrap: wrap;
+      .cards {
+        gap: 2rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
 
-				padding-bottom: 5rem;
+        padding-bottom: 5rem;
 
-				.card {
-					width: 45%;
-					min-width: 34rem;
+        .card {
+          width: 45%;
+          min-width: 34rem;
 
-					height: 16rem;
+          height: 16rem;
 
-					border-radius: 1rem;
-					border: 1px solid #eee;
-					display: flex;
+          border-radius: 1rem;
+          border: 1px solid #eee;
+          display: flex;
 
-					img {
-						width: 16rem;
-						border-top-left-radius: 1rem;
-						border-bottom-left-radius: 1rem;
-						object-fit: cover;
-					}
+          img {
+            width: 16rem;
+            border-top-left-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+            object-fit: cover;
+          }
 
-					.info {
-						padding: 1rem;
-						display: flex;
-						flex-direction: column;
-						justify-content: space-between;
-						width: 100%;
+          .info {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
 
-						.basic {
-							.title {
-								font-size: 18px;
-								font-weight: 600;
-								margin-bottom: 0.5rem;
-							}
+            .basic {
+              .title {
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+              }
 
-							.stars {
-								gap: 0.5rem;
-								display: flex;
-								align-items: center;
-								opacity: 0.5;
+              .stars {
+                gap: 0.5rem;
+                display: flex;
+                align-items: center;
+                opacity: 0.5;
 
-								i {
-									color: #000;
-									font-size: 14px;
-									margin-top: 3px;
-								}
+                i {
+                  color: #000;
+                  font-size: 14px;
+                  margin-top: 3px;
+                }
 
-								span {
-									font-size: 14px;
-									font-weight: 600;
-								}
-							}
-						}
+                span {
+                  font-size: 14px;
+                  font-weight: 600;
+                }
+              }
+            }
 
-						.price {
-							display: flex;
-							align-items: center;
-							justify-content: space-between;
+            .price {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
 
-							.count {
-								gap: 0.5rem;
-								display: flex;
-								align-items: center;
+              .count {
+                gap: 0.5rem;
+                display: flex;
+                align-items: center;
 
-								border: 1px solid #eee;
-								width: min-content;
-								border-radius: 1rem;
+                border: 1px solid #eee;
+                width: min-content;
+                border-radius: 1rem;
 
-								.button {
-									width: 1.5rem;
-									height: 1.5rem;
+                .button {
+                  width: 1.5rem;
+                  height: 1.5rem;
 
-									gap: 0.5rem;
-									display: flex;
-									align-items: center;
-									justify-content: center;
+                  gap: 0.5rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
 
-									background: #f5f4f4;
-									border-radius: 1rem;
+                  background: #f5f4f4;
+                  border-radius: 1rem;
 
-									cursor: pointer;
-								}
+                  cursor: pointer;
+                }
 
-								span {
-									display: block;
-									text-align: center;
-									width: 1.5rem;
-								}
-							}
+                span {
+                  display: block;
+                  text-align: center;
+                  width: 1.5rem;
+                }
+              }
 
-							.total {
-								gap: 2px;
-								display: flex;
+              .total {
+                gap: 2px;
+                display: flex;
 
-								:first-child {
-									font-size: 12px;
-									font-weight: 600;
-									padding-top: 2px;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+                :first-child {
+                  font-size: 12px;
+                  font-weight: 600;
+                  padding-top: 2px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
-		.right {
-			width: 30rem;
-			max-height: 100%;
+    .right {
+      width: 35rem;
+      max-height: 100%;
 
-			position: sticky;
-			top: 0;
+      position: sticky;
+      top: 0;
 
-			.heading {
-				height: 7rem;
-				display: flex;
-				align-items: flex-end;
-			}
+      .heading {
+        height: 7rem;
+        display: flex;
+        align-items: flex-end;
+      }
 
-			.content {
-				height: calc(100% - 7rem);
+      .content {
+        height: calc(100% - 7rem);
 
-				gap: 1rem;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
+        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-				.list {
-					height: 100%;
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
+        .list {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
 
-					.item {
-						gap: 2rem;
-						display: flex;
-						align-items: flex-start;
-						justify-content: space-between;
-						padding: 0.5rem 0;
+          .item {
+            gap: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1rem 3rem;
 
-						:nth-child(2) {
-							font-weight: 500;
-							text-decoration: underline;
-						}
+            padding: 0.5rem 0;
 
-						&.discount {
-							span {
-								color: green;
-								font-weight: 600;
+            :nth-child(3) {
+              font-weight: 500;
+              text-decoration: underline;
+              white-space: nowrap;
+            }
+
+            &.discount {
+              span {
+                color: green;
+                font-weight: 600;
+                text-decoration: none;
+              }
+            }
+
+            &.head {
+							border-bottom: 1px solid #000;
+
+              span {
+                font-weight: 600;
 								text-decoration: none;
-							}
-						}
-					}
-				}
+              }
+            }
+          }
+        }
 
-				.cta {
-					padding: 1.2rem 0;
-					border-top: 1px solid #eee;
+        .cta {
+          padding: 1.2rem 0;
+          border-top: 1px solid #eee;
 
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
 
-					.button {
-						cursor: pointer;
-						padding: 0.6rem 2rem;
-						background: #000;
-						border-radius: 2rem;
-						color: #fff;
-						font-size: 14px;
+          .button {
+            cursor: pointer;
+            padding: 0.6rem 2rem;
+            background: #000;
+            border-radius: 2rem;
+            color: #fff;
+            font-size: 14px;
 
-						&:hover {
-							opacity: 0.8;
-						}
+            &:hover {
+              opacity: 0.8;
+            }
 
-						gap: 1rem;
-						display: flex;
-						align-items: center;
-						justify-content: center;
+            gap: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-						i {
-							margin-top: 4px;
-						}
+            i {
+              margin-top: 4px;
+            }
 
-						span {
-							font-weight: 600;
-						}
-					}
+            span {
+              font-weight: 600;
+            }
+          }
 
-					.total {
-						display: flex;
-						align-items: center;
+          .total {
+            display: flex;
+            align-items: center;
 
-						font-weight: 600;
-					}
-				}
-			}
-		}
-	}
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
 }

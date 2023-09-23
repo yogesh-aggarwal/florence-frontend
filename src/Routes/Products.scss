@@ -1,5 +1,4 @@
 #ProductsComponent {
-  
   #body {
     display: flex;
     padding: 0 5%;
@@ -135,6 +134,20 @@
             i {
               font-size: 18px;
               margin-top: 1px;
+            }
+
+            .icon {
+              width: 20px;
+              height: 20px;
+              border-radius: 100%;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              cursor: pointer;
+
+              border: 1px solid #eee;
             }
           }
 
