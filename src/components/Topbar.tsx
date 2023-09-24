@@ -82,6 +82,14 @@ export default function Topbar() {
           >
             <i className="fi fi-sr-shopping-cart"></i>
           </div>
+          <div
+            className="profile"
+            onClick={() => {
+              navigate("/Profile");
+            }}
+          >
+            <i className="fi fi-sr-users"></i>
+          </div>
         </div>
       </div>
       <div id="divider"></div>

@@ -55,8 +55,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 2rem;
 
-    .cart {
+    .cart,
+    .profile {
       i {
         font-size: 20px;
         cursor: pointer;
