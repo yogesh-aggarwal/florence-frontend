@@ -1,9 +1,8 @@
 import "./Listing.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toTitleCase, useNetworkRequest } from "../Lib/helpers";
-import MultiRangeSlider from "../components/MultiRangeSlider";
 import Topbar from "../components/Topbar";
 import { Product_t } from "../Lib/Types/product";
 import { productsStore, useProducts } from "../Lib/State";
@@ -39,7 +38,20 @@ export default function Listing() {
   const params = useParams() as { category: string };
   const products = useProducts();
 
+  const [activeSort, setActiveSort] = useState("");
   const isTrendingSection = params.category.toLowerCase() === "trending";
+  const [sortedProducts, setSortedProducts] = useState<Product_t[]>([]);
+
+  const [filter, setFilter] = useState({
+    price: 0,
+    delivery: 0,
+    discount: 0,
+  });
+  const [maxFilter, setMaxFilter] = useState({
+    price: 0,
+    delivery: 0,
+    discount: 0,
+  });
 
   useNetworkRequest(
     isTrendingSection ? "GET" : "POST",
@@ -47,13 +59,72 @@ export default function Listing() {
     isTrendingSection ? undefined : { category: params.category.toLowerCase() },
     async (res) => {
       const body = await res.json();
-      const allProducts = body["data"];
+      const allProducts = body["data"] as Product_t[];
       productsStore.set(allProducts);
     },
+
     [params.category]
   );
 
-  if (!products) return <div>Loading</div>;
+  useEffect(() => {
+    const result = [...products].sort((a, b) => {
+      /// -ve, 0, +ve
+      switch (activeSort) {
+        case "stars":
+          return b.starRatings - a.starRatings;
+        case "price":
+          return b.price - a.price;
+        case "delivery":
+          return b.deliveryCharges - a.deliveryCharges;
+        case "discount":
+          return b.discountInPercent - a.discountInPercent;
+        default:
+          return 0;
+      }
+    });
+
+    const filteredResult: Product_t[] = [];
+    for (let product of result) {
+      if (
+        product.price <= filter.price &&
+        product.discountInPercent <= filter.discount &&
+        product.deliveryCharges <= filter.delivery
+      ) {
+        filteredResult.push(product);
+      }
+    }
+
+    setSortedProducts(filteredResult);
+  }, [products, activeSort, filter]);
+
+  useEffect(() => {
+    let maxPrice: number = 0;
+    let maxDelivery: number = 0;
+    let maxDiscount: number = 0;
+    for (let product of products) {
+      if (product.price > maxPrice) {
+        maxPrice = product.price;
+      }
+      if (product.deliveryCharges > maxDelivery) {
+        maxDelivery = product.deliveryCharges;
+      }
+      if (product.discountInPercent > maxDiscount) {
+        maxDiscount = product.discountInPercent;
+      }
+    }
+
+    setFilter({
+      price: maxPrice,
+      delivery: maxDelivery,
+      discount: maxDiscount,
+    });
+    setMaxFilter({
+      price: maxPrice,
+      delivery: maxDelivery,
+      discount: maxDiscount,
+    });
+  }, [products]);
+
   return (
     <div id="Listing-component">
       <Topbar />
@@ -62,61 +133,46 @@ export default function Listing() {
           <div className="section">
             <div className="heading">Sort by</div>
             <div className="content">
-              <div className="option active">
-                <span>Title</span>
-                <i className="fi fi-sr-arrow-up"></i>
+              <div
+                className={"option " + (activeSort === "stars" ? "active" : "")}
+                onClick={() => setActiveSort("stars")}
+              >
+                <span className="stars">Stars Given</span>
               </div>
-              <div className="option">
-                <span>Stars Given</span>
-                {/* <i className="fi fi-sr-arrow-up"></i> */}
+              <div
+                className={"option " + (activeSort === "price" ? "active" : "")}
+                onClick={() => setActiveSort("price")}
+              >
+                <span className="price">Price</span>
               </div>
-              <div className="option">
-                <span>Price</span>
-                {/* <i className="fi fi-sr-arrow-up"></i> */}
-              </div>
-              <div className="option">
+              <div
+                className={
+                  "option " + (activeSort === "delivery" ? "active" : "")
+                }
+                onClick={() => setActiveSort("delivery")}
+              >
                 <span>Delivery Charge</span>
-                {/* <i className="fi fi-sr-arrow-up"></i> */}
               </div>
-              <div className="option">
+              <div
+                className={
+                  "option " + (activeSort === "discount" ? "active" : "")
+                }
+                onClick={() => setActiveSort("discount")}
+              >
                 <span>Discount</span>
-                {/* <i className="fi fi-sr-arrow-up"></i> */}
-              </div>
-            </div>
-          </div>
-          <div className="section">
-            <div className="heading">Occasion</div>
-            <div className="content">
-              <div className="checkbox">
-                <input type="checkbox" />
-                <span>Birthday</span>
-              </div>
-              <div className="checkbox">
-                <input type="checkbox" />
-                <span>Anniversary</span>
-              </div>
-              <div className="checkbox">
-                <input type="checkbox" />
-                <span>Love & Romance</span>
-              </div>
-              <div className="checkbox">
-                <input type="checkbox" />
-                <span>Celebration</span>
-              </div>
-              <div className="checkbox">
-                <input type="checkbox" />
-                <span>Furenal</span>
               </div>
             </div>
           </div>
           <div className="section">
             <div className="heading">Price</div>
             <div className="content">
-              <MultiRangeSlider
+              <input
+                type="range"
                 min={1}
-                max={20000}
-                onChange={(value) => {
-                  console.log(value);
+                max={maxFilter.price}
+                value={filter.price}
+                onChange={(e) => {
+                  setFilter({ ...filter, price: +e.target.value });
                 }}
               />
             </div>
@@ -124,11 +180,13 @@ export default function Listing() {
           <div className="section">
             <div className="heading">Discount</div>
             <div className="content">
-              <MultiRangeSlider
-                min={0}
-                max={50}
-                onChange={(value) => {
-                  console.log(value);
+              <input
+                type="range"
+                min={1}
+                max={100}
+                value={filter.delivery}
+                onChange={(e) => {
+                  setFilter({ ...filter, delivery: +e.target.value });
                 }}
               />
             </div>
@@ -136,11 +194,13 @@ export default function Listing() {
           <div className="section">
             <div className="heading">Delivery charges</div>
             <div className="content">
-              <MultiRangeSlider
-                min={30}
-                max={50}
-                onChange={(value) => {
-                  console.log(value);
+              <input
+                type="range"
+                min={1}
+                max={90}
+                value={filter.discount}
+                onChange={(e) => {
+                  setFilter({ ...filter, discount: +e.target.value });
                 }}
               />
             </div>
@@ -149,7 +209,7 @@ export default function Listing() {
         <div id="right">
           <div className="category">{toTitleCase(params.category)}</div>
           <div className="allProducts">
-            {products.map((product) => {
+            {sortedProducts.map((product) => {
               return <ProductCard product={product} />;
             })}
           </div>

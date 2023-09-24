@@ -37,6 +37,10 @@
             }
           }
 
+          input {
+            width: 100%;
+          }
+
           .option {
             justify-content: space-between;
             padding: 5px 0;
@@ -47,7 +51,7 @@
 
             &.active {
               * {
-                font-weight: 500;
+                font-weight: 600;
               }
             }
           }
