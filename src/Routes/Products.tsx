@@ -1,7 +1,7 @@
 import "./Products.scss";
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { productsStore, useCart, useProducts } from "../Lib/State";
 import { ProductDescription_t, Product_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
@@ -36,7 +36,6 @@ export default function Product() {
   const product = useProducts().find((product) => product._id === params.id);
   const [url, setUrl] = useState<string | undefined>(product?.images[0]);
 
-  const navigate = useNavigate();
   const cart = useCart();
 
   useNetworkRequest(

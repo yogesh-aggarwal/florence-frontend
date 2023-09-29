@@ -2,10 +2,11 @@ import "./Order.scss";
 
 import Topbar from "../components/Topbar";
 import { SAMPLE_PRODUCT } from "../Lib/misc";
+import { useNavigate } from "react-router-dom";
 
 export default function Order() {
   const arr = [1, 2, 3, 4];
-
+  const navigate = useNavigate();
   return (
     <div className="OrderComponent">
       <Topbar />
@@ -17,7 +18,13 @@ export default function Order() {
               <div className="cards">
                 {arr.map((ele, i) => {
                   return (
-                    <div key={i} className="card">
+                    <div
+                      key={i}
+                      className="card"
+                      onClick={() => {
+                        navigate(`/product/${SAMPLE_PRODUCT._id}`);
+                      }}
+                    >
                       <img src={SAMPLE_PRODUCT.images[0]} alt="" />
                       <div className="info">
                         <div className="title">{SAMPLE_PRODUCT.title}</div>
