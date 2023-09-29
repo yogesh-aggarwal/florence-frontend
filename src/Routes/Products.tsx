@@ -2,10 +2,10 @@ import "./Products.scss";
 
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Topbar from "../components/Topbar";
-import { Product_t, ProductDescription_t } from "../Lib/Types/product";
+import { productsStore, useCart, useProducts } from "../Lib/State";
+import { ProductDescription_t, Product_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
-import { cartStore, productsStore, useCart, useProducts } from "../Lib/State";
+import Topbar from "../components/Topbar";
 import { Cart } from "../Lib/cart";
 
 function ProductInfo(props: {
@@ -14,7 +14,7 @@ function ProductInfo(props: {
 }) {
   return (
     <div className="section">
-      <div className="heading">{props.heading}</div>
+      {props.heading && <div className="heading">{props.heading}</div>}
       {props.content.map((section) => {
         if (section.type === "para") {
           return <p>{section.content}</p>;
@@ -45,15 +45,17 @@ export default function Product() {
     { id: params.id },
     async (res: Response) => {
       const body = await res.json();
+
       const selectedProduct = body["data"] as Product_t;
-
-      const products = productsStore.value({ clone: true });
-      products.push(selectedProduct);
-      productsStore.set(products);
-
-      // productsStore.set([...productsStore.value(), selectedProduct]);
-
       setUrl(selectedProduct.images[0]);
+
+      const products = productsStore.value();
+      const doesExist = products.find(
+        (product) => product._id === selectedProduct._id
+      );
+      if (doesExist) return;
+
+      productsStore.set([...products, selectedProduct]);
     },
     []
   );
@@ -84,6 +86,8 @@ export default function Product() {
     };
   }, [product, url]);
 
+  
+
   if (!product || !url) return <div>Loading</div>;
 
   return (
@@ -108,130 +112,103 @@ export default function Product() {
                 />
               );
             })}
-            {/* <div className="icons">
-                </div> */}
-            <div
-              className={
-                "icon " + (product.images.indexOf(url) === 0 ? "disabled" : "")
-              }
-              onClick={() => {
-                // console.log(product.images);
-                const imagePos = product.images.indexOf(url);
-                if (imagePos === 0) return;
-                const prevImage = product.images[imagePos - 1];
-                setUrl(prevImage);
-              }}
-            >
-              <i className="fi fi-rr-angle-up"></i>
-            </div>
-            <div
-              className={
-                "icon " +
-                (product.images.indexOf(url) === product.images.length - 1
-                  ? "disabled"
-                  : "")
-              }
-              onClick={() => {
-                const imagePos = product.images.indexOf(url);
-                if (imagePos === product.images.length - 1) return;
-                const nxtImg = product.images[imagePos + 1];
-                setUrl(nxtImg);
-              }}
-            >
-              <i className="fi fi-rr-angle-down"></i>
+            <div className="icons">
+              <div
+                className={
+                  "icon " +
+                  (product.images.indexOf(url) === 0 ? "disabled" : "")
+                }
+                onClick={() => {
+                  // console.log(product.images);
+                  const imagePos = product.images.indexOf(url);
+                  if (imagePos === 0) return;
+                  const prevImage = product.images[imagePos - 1];
+                  setUrl(prevImage);
+                }}
+              >
+                <i className="fi fi-rr-angle-up"></i>
+              </div>
+              <div
+                className={
+                  "icon " +
+                  (product.images.indexOf(url) === product.images.length - 1
+                    ? "disabled"
+                    : "")
+                }
+                onClick={() => {
+                  const imagePos = product.images.indexOf(url);
+                  if (imagePos === product.images.length - 1) return;
+                  const nxtImg = product.images[imagePos + 1];
+                  setUrl(nxtImg);
+                }}
+              >
+                <i className="fi fi-rr-angle-down"></i>
+              </div>
             </div>
           </div>
           <div id="image">
             <img src={url} />
           </div>
         </div>
-        <div id="right">
-          <div id="top">
-            <div id="category">Celebration</div>
-            <div id="prodTitle">{product["title"]}</div>
-            <div id="review">
-              <div id="stars">
-                <div id="star">
-                  <i className="fi fi-sr-star"></i>
-                  <i className="fi fi-sr-star"></i>
-                  <i className="fi fi-sr-star"></i>
-                  <i className="fi fi-sr-star"></i>
-                  <i className="fi fi-rr-star"></i>
-                </div>
-                <div id="total">{product.starRatings}</div>
-              </div>
-              <div id="comments">
-                <i className="fi fi-sr-comment"></i>
-                <div id="comments">{product.reviews.length} reviews</div>
-              </div>
+        <div className="right">
+          <div className="title">{product.title}</div>
+          <div className="info">
+            <div className="pill category">
+              <i className="fi fi-sr-star"></i>
+              <span>Celebration</span>
             </div>
-            <div id="cart">
-              {!cart[product._id] ? (
-                <div
-                  id="cartButton"
-                  onClick={() => {
-                    Cart.add(product._id);
-                  }}
-                >
+            <div className="pill discount">
+              <i className="fi fi-sr-bookmark"></i>
+              <span>{product.discountInPercent}% discount</span>
+            </div>
+            <div className="pill reviews">
+              <i className="fi fi-sr-messages"></i>
+              <span>{product.reviews.length} Reviews</span>
+            </div>
+            <div className="pill">
+              <i className="fi fi-sr-truck-side"></i>
+              <span>{product.stock} in stock</span>
+            </div>
+          </div>
+          <div className="actions">
+            <div className="price">
+              <div className="heading">Price</div>
+              <div className="rate">INR {product.price}</div>
+            </div>
+            <div className="cart">
+              {!cart[product._id] && (
+                <div className="button" onClick={() => Cart.add(product._id)}>
                   <i className="fi fi-sr-shopping-cart"></i>
-                  <div>Add to cart</div>
+                  <span>Add to cart</span>
                 </div>
-              ) : (
-                <div id="cartButton">
+              )}
+              {cart[product._id] > 0 && (
+                <div className="numbers">
                   <div
-                    className="icon"
-                    onClick={() => {
-                      Cart.add(product._id);
-                    }}
-                  >
-                    +
-                  </div>
-                  <div className="quantity">{cart[product._id]}</div>
-                  <div
-                    className="icon"
-                    onClick={() => {
-                      Cart.deleteProduct(product._id);
-                    }}
+                    className="action"
+                    onClick={() => Cart.deleteProduct(product._id)}
                   >
                     -
                   </div>
+                  <div className="number">{cart[product._id]}</div>
+                  <div className="action" onClick={() => Cart.add(product._id)}>
+                    +
+                  </div>
                 </div>
               )}
-
-              <div id="priceButton">
-                <i>₹</i>
-                <div id="price">{product.price}</div>
-              </div>
             </div>
           </div>
-          <div id="line"></div>
-          <div id="bottom">
-            <div className="card">
-              <i className="fi fi-sr-credit-card"></i>
-              <span>Secure payment</span>
-            </div>
-            <div className="card">
-              <i className="fi fi-sr-truck-side"></i>
-              <span>Free shipping</span>
-            </div>
-            <div className="card">
-              <i className="fi fi-sr-truck-couch"></i>
-              <span>No returns</span>
-            </div>
-            <div className="card">
-              <i className="fi fi-sr-badge-check"></i>
-              <span>Assured quality</span>
-            </div>
+          <div className="details">
+            <ProductInfo heading="" content={product.description} />
+            <ProductInfo
+              heading="Care instructions"
+              content={product.careInstructions}
+            />
+            <ProductInfo
+              heading="Delivery information"
+              content={product.deliveryInfo}
+            />
           </div>
-          <ProductInfo heading="Description" content={product.description} />
-          <ProductInfo
-            heading="Care Instructions"
-            content={product.careInstructions}
-          />
-          <ProductInfo
-            heading="Delivery Information"
-            content={product.deliveryInfo}
-          />
         </div>
       </div>
     </div>
