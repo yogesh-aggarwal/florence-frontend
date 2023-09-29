@@ -6,6 +6,7 @@ import { IMAGES } from "../Lib/Constants";
 
 import Logo from "../assets/logo.png";
 import google from "../assets/google.png";
+import { userStore } from "../Lib/State";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -102,6 +103,7 @@ export default function Login() {
                 const body = await res.json();
                 if (res.status === 200) {
                   localStorage.setItem("token", body["token"]);
+                  userStore.set(body["user"]);
                   navigate("/");
                 } else {
                   /* Choice 1 */

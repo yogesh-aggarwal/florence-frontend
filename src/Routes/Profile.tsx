@@ -1,8 +1,19 @@
 import "./Profile.scss";
 
 import Topbar from "../components/Topbar";
+import { useUser } from "../Lib/State";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const user = useUser();
+  const navigate = useNavigate();
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
+  const primaryAddress = user.deliveryAddresses[0];
+
   return (
     <div className="ProfileComponent">
       <Topbar />
@@ -15,20 +26,32 @@ export default function Profile() {
             />
           </div>
           <div className="name">
-            <span>Bird Gupta</span>
+            <span>{user.name}</span>
           </div>
           <div className="field">
             <i className="fi fi-sr-smartphone"></i>
-            <span>9718343430</span>
+            <span>{user.mobileNumbers[0] ?? "Add Phone number"}</span>
           </div>
-          <div className="field">
-            <i className="fi fi-sr-marker"></i>
-            <span>3 floor vivekanand puri</span>
-          </div>
-          <div className="field">
-            <i className="fi fi-sr-marker"></i>
-            <span>110085</span>
-          </div>
+          {primaryAddress && (
+            <>
+              <div className="field">
+                <i className="fi fi-sr-marker"></i>
+                <span>
+                  {primaryAddress.address},{primaryAddress.city}
+                </span>
+              </div>
+              <div className="field">
+                <i className="fi fi-sr-marker"></i>
+                <span>{primaryAddress.pincode}</span>
+              </div>
+            </>
+          )}
+          {!primaryAddress && (
+            <div className="field" onClick={() => {}}>
+              <i className="fi fi-sr-marker"></i>
+              <span>Add address</span>
+            </div>
+          )}
         </div>
         <div className="right">
           <div className="heading">Orders</div>

@@ -7,8 +7,8 @@ export type Address_t = {
 export type User_t = {
   _id: string;
   email: string;
-  password: string;
   name: string;
+  password: string
   deliveryAddresses: Address_t[];
   mobileNumbers: string[];
 };

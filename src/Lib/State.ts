@@ -2,7 +2,11 @@ import { makeStore } from "common-react-toolkit";
 import { Product_t } from "./Types/product";
 import { User_t } from "./Types/user";
 
-export const [userStore, useUser] = makeStore<User_t | null>(null);
+export const [userStore, useUser] = makeStore<User_t | null>(
+  null,
+  {},
+  { storeID: "user" }
+);
 
 export const [productsStore, useProducts] = makeStore<Product_t[]>(
   [],
