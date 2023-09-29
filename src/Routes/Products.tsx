@@ -86,7 +86,21 @@ export default function Product() {
     };
   }, [product, url]);
 
-  
+  useEffect(() => {
+    const id = setInterval(() => {
+      // document.dispatchEvent(new Event("keydown", { key: "ArrowDown" } as any));
+      if (!product || !url) return;
+      const productImages = product.images;
+      let constPost = product.images.indexOf(url);
+      if (constPost === productImages.length - 1) {
+        constPost = -1;
+      }
+      setUrl(product.images[constPost + 1]);
+    }, 3000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [product, url]);
 
   if (!product || !url) return <div>Loading</div>;
 
