@@ -1,9 +1,11 @@
 import "./Cart.scss";
 
-import Topbar from "../components/Topbar";
-import { useCart, useProducts } from "../Lib/State";
-import { Cart as CartActions } from "../Lib/cart";
 import { useEffect, useState } from "react";
+import useRazorpay, { RazorpayOptions } from "react-razorpay";
+import { useCart, useProducts, useUser, cartStore } from "../Lib/State";
+import { Cart as CartActions } from "../Lib/cart";
+import { networkRequest } from "../Lib/helpers";
+import Topbar from "../components/Topbar";
 
 type CartProduct_t = {
   id: string;
@@ -13,6 +15,88 @@ type CartProduct_t = {
   price: number;
   title: string;
 };
+
+function CheckoutButton(props: { finalPrice: number }) {
+  const [Razorpay] = useRazorpay();
+  const user = useUser();
+  const cart = useCart();
+
+  const handlePayment = async () => {
+    const order = await networkRequest("POST", "/order", {
+      amount: props.finalPrice * 100,
+    });
+    // const order = await createOrder(); //  Create order on your backend
+    if (!user) return;
+
+    if (order.status !== 200) return;
+
+    const orderMeta = await order.json();
+    console.log(orderMeta);
+
+    const options: RazorpayOptions = {
+      key: "rzp_test_rMU9G0FV33EqNz", // Enter the Key ID generated from the Dashboard
+      amount: orderMeta["order"]["amount"].toString(), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "Florence",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: orderMeta["order"]["id"], //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+      handler: async function (response) {
+        console.log(response);
+        console.log();
+        const orderInfo = response;
+        const orderPlaced = await networkRequest("POST", "/orderPlaced", {
+          ...orderInfo,
+          cart: cart,
+          userId: user._id,
+        });
+        if(orderPlaced.status===200){
+          console.log(await orderPlaced.json())
+        } else {
+          console.log("gth")
+        }
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: user.mobileNumbers[0] ?? "",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp1 = new Razorpay(options);
+
+    rzp1.on("payment.failed", function (response: any) {
+      // alert(response.error.code);
+      // alert(response.error.description);
+      // alert(response.error.source);
+      // alert(response.error.step);
+      // alert(response.error.reason);
+      // alert(response.error.metadata.order_id);
+      // alert(response.error.metadata.payment_id);
+    });
+
+    rzp1.open();
+  };
+
+  return (
+    <div
+      className="button"
+      onClick={() => {
+        handlePayment();
+        // console.table(cartStore.value());
+      }}
+    >
+      <span>Checkout</span>
+      <i className="fi fi-sr-arrow-right"></i>
+    </div>
+  );
+}
 
 export default function Cart() {
   const cart = useCart();
@@ -147,10 +231,7 @@ export default function Cart() {
               </div>
             </div>
             <div className="cta">
-              <div className="button">
-                <span>Checkout</span>
-                <i className="fi fi-sr-arrow-right"></i>
-              </div>
+              <CheckoutButton finalPrice={finalPrice} />
               <div className="total">
                 <span>₹</span>
                 <span>{finalPrice}</span>
