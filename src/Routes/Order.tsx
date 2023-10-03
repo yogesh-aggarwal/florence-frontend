@@ -2,8 +2,12 @@ import "./Order.scss";
 
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Order_t, OrderedProducts_t } from "../Lib/Types/order";
-import { networkRequest, useNetworkRequest } from "../Lib/helpers";
+import { OrderStatus, Order_t, OrderedProducts_t } from "../Lib/Types/order";
+import {
+  getDateInFormat,
+  networkRequest,
+  useNetworkRequest,
+} from "../Lib/helpers";
 import Topbar from "../components/Topbar";
 import { orderstore } from "../Lib/State";
 
@@ -35,7 +39,8 @@ export default function Order() {
   });
 
   if (!order || !orderedProducts) return;
-
+  let status = order.currentStatus;
+  console.log(status);
   return (
     <div className="OrderComponent">
       <Topbar />
@@ -62,6 +67,7 @@ export default function Order() {
                             <div className="quant">
                               <span>{order.orderItems[ele.id]} items</span>
                             </div>
+                            <div className="date"></div>
                             <div className="price">
                               <span> ₹{order.priceItems[ele.id]} </span>
                             </div>
@@ -77,30 +83,59 @@ export default function Order() {
               <div className="del">
                 <div className="ship">shipment 1 of 1</div>
                 <div className="items">{orderedProducts.length} items</div>
-                <div className="package">package delivered on </div>
-                <div className="delDate">Sun, 7june</div>
+                <div className="package">package {order.currentStatus} on </div>
+                <div className="delDate">
+                  {getDateInFormat(order.timestamps[order.currentStatus])}
+                </div>
               </div>
               <div className="sections">
                 <div className="section">
                   <div className="box">
                     <i className="fi fi-sr-check"></i>
-                    <div className="title">Order Confirm</div>
+                    <div
+                      className={
+                        "title " +
+                        (status === OrderStatus.Placed ? "active" : "")
+                      }
+                    >
+                      Order Confirm
+                    </div>
                   </div>
-                  <div className="date">Fri, 5june</div>
+                  <div className="date">
+                    {getDateInFormat(order.timestamps["placed"])}
+                  </div>
                 </div>
                 <div className="section">
                   <div className="box">
                     <i className="fi fi-rr-check"></i>
-                    <div className="title">Order Shipped</div>
+                    <div
+                      className={
+                        "title " +
+                        (status === OrderStatus.Transit ? "active" : "")
+                      }
+                    >
+                      Order Shipped
+                    </div>
                   </div>
-                  <div className="date">Sat, 6june</div>
+                  <div className="date">
+                    {getDateInFormat(order.timestamps["transit"])}
+                  </div>
                 </div>
                 <div className="section">
                   <div className="box">
                     <i className="fi fi-rr-check"></i>
-                    <div className="title">Delivered</div>
+                    <div
+                      className={
+                        "title " +
+                        (status === OrderStatus.Delivered ? "active" : "")
+                      }
+                    >
+                      Delivered
+                    </div>
                   </div>
-                  <div className="date">Sun, 7june</div>
+                  <div className="date">
+                    {getDateInFormat(order.timestamps["delivered"])}
+                  </div>
                 </div>
               </div>
               <div className="rate">

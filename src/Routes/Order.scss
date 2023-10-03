@@ -129,6 +129,9 @@
 
             .title {
               white-space: nowrap;
+              &.active {
+                font-weight: 500;
+              }
             }
           }
         }

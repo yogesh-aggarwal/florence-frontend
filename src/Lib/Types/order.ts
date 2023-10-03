@@ -10,7 +10,7 @@ type Timestamps_t = {
   delivered: number;
 };
 
-enum OrderStatus {
+export enum OrderStatus {
   Placed = "placed",
   Transit = "transit",
   Delivered = "delivered",

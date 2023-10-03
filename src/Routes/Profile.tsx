@@ -30,10 +30,7 @@ export default function Profile() {
       <div className="body">
         <div className="left">
           <div className="image">
-            <img
-              src={user.dp}
-              alt=""
-            />
+            <img src={user.dp} alt="" />
           </div>
           <div className="name">
             <span>{user.name}</span>
