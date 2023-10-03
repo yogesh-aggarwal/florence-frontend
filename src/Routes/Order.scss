@@ -13,15 +13,17 @@
       margin-bottom: 2rem;
     }
   }
+
   .ori {
-    display: grid;
-    grid-template-columns: 1fr 30rem;
     gap: 48px;
+    display: grid;
+    grid-template-columns: 1fr 25rem;
+
     .left {
       .cards {
-        gap: 2rem;
+        gap: 1rem;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
 
         margin-top: 1rem;
 
@@ -30,19 +32,21 @@
           // box-shadow: 0px 2px 15px #eee;
           border: 1px solid #eee;
           cursor: pointer;
-          height: 14rem;
-          border-radius: 35px;
+          height: 10rem;
+          border-radius: 1.5rem;
 
           img {
-            width: 45%;
+            width: 40%;
             height: 100%;
+
+            object-fit: cover;
 
             border-top-left-radius: inherit;
             border-bottom-left-radius: inherit;
           }
 
           .info {
-            padding: 1.4rem;
+            padding: 1.1rem;
             width: 100%;
 
             display: flex;
@@ -56,6 +60,7 @@
             }
 
             .other {
+              opacity: 0.5;
               .basic {
                 display: flex;
                 align-items: center;
@@ -63,8 +68,6 @@
 
                 font-size: 14px;
                 font-weight: 500;
-
-                color: #afafaf;
                 margin-top: 1rem;
               }
 
@@ -140,10 +143,11 @@
         }
 
         .ratings {
+          margin-top: 1rem;
           .rating {
-            display: flex;
-            margin-top: 2%;
             gap: 2rem;
+            display: flex;
+            margin-top: 0.5rem;
 
             .stars {
               i {

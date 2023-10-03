@@ -6,6 +6,7 @@ import { useCart, useProducts, useUser, cartStore } from "../Lib/State";
 import { Cart as CartActions } from "../Lib/cart";
 import { networkRequest } from "../Lib/helpers";
 import Topbar from "../components/Topbar";
+import { useNavigate } from "react-router-dom";
 
 type CartProduct_t = {
   id: string;
@@ -20,6 +21,7 @@ function CheckoutButton(props: { finalPrice: number }) {
   const [Razorpay] = useRazorpay();
   const user = useUser();
   const cart = useCart();
+  const navigate = useNavigate();
 
   const handlePayment = async () => {
     const order = await networkRequest("POST", "/order", {
@@ -42,18 +44,19 @@ function CheckoutButton(props: { finalPrice: number }) {
       image: "https://example.com/your_logo",
       order_id: orderMeta["order"]["id"], //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
       handler: async function (response) {
-        console.log(response);
-        console.log();
         const orderInfo = response;
         const orderPlaced = await networkRequest("POST", "/orderPlaced", {
           ...orderInfo,
           cart: cart,
           userId: user._id,
         });
-        if(orderPlaced.status===200){
-          console.log(await orderPlaced.json())
+        if (orderPlaced.status === 200) {
+          console.log(300);
+          const order = await orderPlaced.json();
+          cartStore.reset();
+          navigate(`/order/${order["orderId"]}`);
         } else {
-          console.log("gth")
+          console.log("failed");
         }
       },
       prefill: {
@@ -71,15 +74,7 @@ function CheckoutButton(props: { finalPrice: number }) {
 
     const rzp1 = new Razorpay(options);
 
-    rzp1.on("payment.failed", function (response: any) {
-      // alert(response.error.code);
-      // alert(response.error.description);
-      // alert(response.error.source);
-      // alert(response.error.step);
-      // alert(response.error.reason);
-      // alert(response.error.metadata.order_id);
-      // alert(response.error.metadata.payment_id);
-    });
+    rzp1.on("payment.failed", function (response: any) {});
 
     rzp1.open();
   };
@@ -89,7 +84,6 @@ function CheckoutButton(props: { finalPrice: number }) {
       className="button"
       onClick={() => {
         handlePayment();
-        // console.table(cartStore.value());
       }}
     >
       <span>Checkout</span>

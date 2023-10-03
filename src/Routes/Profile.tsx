@@ -1,11 +1,21 @@
 import "./Profile.scss";
 
 import Topbar from "../components/Topbar";
-import { useUser } from "../Lib/State";
+import { useUser, userStore } from "../Lib/State";
 import { useNavigate } from "react-router-dom";
+import { useNetworkRequest } from "../Lib/helpers";
+import { useState } from "react";
+import { Order_t } from "../Lib/Types/order";
 
 export default function Profile() {
   const user = useUser();
+  const [orders, setOrders] = useState<Order_t[] | null>(null);
+  useNetworkRequest("POST", "/getOrderByUserId", {}, async (res) => {
+    const order = (await res.json()).orders;
+    setOrders(order);
+    console.log(order);
+  });
+  // ;
   const navigate = useNavigate();
   if (!user) {
     navigate("/login");
@@ -52,20 +62,52 @@ export default function Profile() {
               <span>Add address</span>
             </div>
           )}
-        </div>
-        <div className="right">
-          <div className="heading">Orders</div>
-          <div className="orders">
-            <div className="order">
-              <div className="id">#ASER123</div>
-              <div className="orderStatus">Order Status: Pending</div>
-              <div className="info">
-                <div className="date">8 Sept, 2023</div>
-                <div className="items">3 items</div>
-              </div>
-            </div>
+          <div
+            className="field"
+            onClick={() => {
+              localStorage.clear();
+              userStore.reset();
+            }}
+          >
+            <i className="fi fi-sr-exit"></i>
+            <span>Logout</span>
           </div>
         </div>
+        {!orders?.length ? (
+          <div className="noOrders"> No orders found</div>
+        ) : (
+          <div className="right">
+            <div className="heading">Orders</div>
+            <div className="orders">
+              {orders.map((order, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="order"
+                    onClick={() => {
+                      navigate(`/order/${order.id}`);
+                    }}
+                  >
+                    <div className="id">#{order.id.slice(6)}</div>
+                    <div className="orderStatus">
+                      Order Status: {order.currentStatus}
+                    </div>
+                    <div className="info">
+                      <div className="date">
+                        {new Date(
+                          order.timestamps[order.currentStatus]
+                        ).toLocaleString()}
+                      </div>
+                      <div className="items">
+                        {Object.keys(order.orderItems).length} items
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<Products />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/order" element={<Order />} />
+        <Route path="/order/:id" element={<Order />} />
 
         <Route path="/listing/:category" element={<Listing />} />
         <Route path="/listing" element={<Navigate to="/listing/trending" />} />

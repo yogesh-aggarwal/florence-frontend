@@ -1,12 +1,41 @@
 import "./Order.scss";
 
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Order_t, OrderedProducts_t } from "../Lib/Types/order";
+import { networkRequest, useNetworkRequest } from "../Lib/helpers";
 import Topbar from "../components/Topbar";
-import { SAMPLE_PRODUCT } from "../Lib/misc";
-import { useNavigate } from "react-router-dom";
+import { orderstore } from "../Lib/State";
 
 export default function Order() {
-  const arr = [1, 2, 3, 4];
   const navigate = useNavigate();
+
+  const [order, setOrder] = useState<Order_t | null>(null);
+  const [orderedProducts, setOrderedProducts] = useState<
+    OrderedProducts_t[] | null
+  >(null);
+  const params = useParams();
+  const orderId = params.id;
+
+  useNetworkRequest("POST", "/getOrderById", { id: orderId }, async (res) => {
+    const order = (await res.json()).order;
+    orderstore.set(order);
+    setOrder(order);
+    if (!order) {
+      return;
+    }
+    const orderProductIds = Object.keys(order!.orderItems);
+    if (!orderProductIds) return;
+    const body = await networkRequest("POST", "/getProductByIds", {
+      ids: orderProductIds,
+    });
+
+    const ordereProducts = (await body.json()).data;
+    setOrderedProducts(ordereProducts);
+  });
+
+  if (!order || !orderedProducts) return;
+
   return (
     <div className="OrderComponent">
       <Topbar />
@@ -14,32 +43,27 @@ export default function Order() {
         <div className="body">
           <div className="ori">
             <div className="left">
-              <div className="heading">Order: #TYU45674</div>
+              <div className="heading">Order ID: #{order.id.slice(6)}</div>
               <div className="cards">
-                {arr.map((ele, i) => {
+                {orderedProducts.map((ele, i) => {
                   return (
                     <div
                       key={i}
                       className="card"
                       onClick={() => {
-                        navigate(`/product/${SAMPLE_PRODUCT._id}`);
+                        navigate(`/product/${ele.id}`);
                       }}
                     >
-                      <img src={SAMPLE_PRODUCT.images[0]} alt="" />
+                      <img src={ele.image} alt="" />
                       <div className="info">
-                        <div className="title">{SAMPLE_PRODUCT.title}</div>
+                        <div className="title">{ele.title}</div>
                         <div className="other">
-                          <div className="date">Ordered on Fri,3 june</div>
-                          <div className="status">Status Deliverd</div>
-
                           <div className="basic">
                             <div className="quant">
-                              <span>Qty: 1</span>
+                              <span>{order.orderItems[ele.id]} items</span>
                             </div>
-                            <div className="price"></div>
-                            <div className="total">
-                              <span>₹</span>
-                              <span>{SAMPLE_PRODUCT.price}</span>
+                            <div className="price">
+                              <span> ₹{order.priceItems[ele.id]} </span>
                             </div>
                           </div>
                         </div>
@@ -52,7 +76,7 @@ export default function Order() {
             <div className="right">
               <div className="del">
                 <div className="ship">shipment 1 of 1</div>
-                <div className="items">3 items delivered</div>
+                <div className="items">{orderedProducts.length} items</div>
                 <div className="package">package delivered on </div>
                 <div className="delDate">Sun, 7june</div>
               </div>
