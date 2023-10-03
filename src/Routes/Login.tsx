@@ -4,9 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../Lib/Constants";
 
-import Logo from "../assets/logo.png";
-import google from "../assets/google.png";
+import { GoogleLogin } from "@react-oauth/google";
 import { userStore } from "../Lib/State";
+import { networkRequest } from "../Lib/helpers";
+import google from "../assets/google.png";
+import Logo from "../assets/logo.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -32,12 +34,27 @@ export default function Login() {
             <div id="welcome">Welcome back,</div>
             <div id="continue">Continue with Google or enter your details.</div>
             <div id="google">
-              <div id="googleButton">
-                {/* <div id="logogoogle"> */}
-                <img src={google} alt="" />
-                {/* </div> */}
-                <div id="loginWIthGoogle">Log in with Google</div>
-              </div>
+              <GoogleLogin
+                onSuccess={async (response) => {
+                  const authRes = await networkRequest(
+                    "POST",
+                    "/loginWithGoogle",
+                    { tokenId: response.credential }
+                  );
+                  if (authRes.status !== 200) {
+                    alert("Invalid request");
+                    return;
+                  }
+                  const authBody = await authRes.json();
+                  userStore.set(authBody.user);
+                  localStorage.setItem("token", authBody.token);
+
+                  navigate("/");
+                }}
+                onError={() => {
+                  alert("Some error occured");
+                }}
+              />
             </div>
             <div id="or">
               <div className="line"></div>

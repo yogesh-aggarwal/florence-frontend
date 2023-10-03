@@ -87,7 +87,7 @@ export default function Topbar() {
           <div
             className="profile"
             onClick={() => {
-              navigate("/Profile");
+              navigate("/profile");
             }}
           >
             {!user ? (

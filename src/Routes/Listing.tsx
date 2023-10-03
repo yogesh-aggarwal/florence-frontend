@@ -209,8 +209,8 @@ export default function Listing() {
         <div id="right">
           <div className="category">{toTitleCase(params.category)}</div>
           <div className="allProducts">
-            {sortedProducts.map((product) => {
-              return <ProductCard product={product} />;
+            {sortedProducts.map((product, i) => {
+              return <ProductCard key={i} product={product} />;
             })}
           </div>
         </div>

@@ -31,7 +31,7 @@ export default function Profile() {
         <div className="left">
           <div className="image">
             <img
-              src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+              src={user.dp}
               alt=""
             />
           </div>
