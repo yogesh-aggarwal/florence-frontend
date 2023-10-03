@@ -26,7 +26,6 @@ export default function Profile() {
 
   return (
     <div className="ProfileComponent">
-      <Topbar />
       <div className="body">
         <div className="left">
           <div className="image">

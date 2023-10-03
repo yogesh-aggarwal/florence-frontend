@@ -105,8 +105,6 @@ export default function Product() {
 
   return (
     <div id="ProductsComponent">
-      {/* {product["title"]} = ₹{product["price"]} */}
-      <Topbar />
       <div id="body">
         <div id="left">
           <div id="slider">

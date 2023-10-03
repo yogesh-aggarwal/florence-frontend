@@ -127,7 +127,6 @@ export default function Listing() {
 
   return (
     <div id="Listing-component">
-      <Topbar />
       <div id="body">
         <div id="left">
           <div className="section">

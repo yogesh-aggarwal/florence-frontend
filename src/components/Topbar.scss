@@ -1,8 +1,17 @@
-#title {
+#topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
+
+  position: sticky;
+  top: 0rem;
+
+  border-bottom: 1px solid #eee;
+
+  &.active {
+    display: none;
+  }
 
   .leftTitle {
     display: flex;
@@ -74,7 +83,4 @@
   }
 }
 #divider {
-  height: 1px;
-  width: 100%;
-  background: #eee;
 }

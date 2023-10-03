@@ -43,7 +43,6 @@ export default function Order() {
   console.log(status);
   return (
     <div className="OrderComponent">
-      <Topbar />
       <div className="orders">
         <div className="body">
           <div className="ori">
