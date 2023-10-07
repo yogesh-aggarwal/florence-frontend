@@ -1,10 +1,12 @@
 export type ProductDescription_t = {
+  _id: string;
   type: "para" | "list";
   content: string | string[];
 };
 
 export type ProductReview_t = {
   id: string;
+  _id: string;
   userID: string;
   starsGiven: number;
   review: string;

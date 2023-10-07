@@ -1,6 +1,7 @@
-export const SAMPLE_PRODUCT = {
+import { Product_t } from "./Types/product";
+
+export const SAMPLE_PRODUCT: Product_t = {
   _id: "64496cfdef9b2db721b6b64c",
-  id: "b78b8374-6a9e-4178-a748-70b7a4f114ba",
   title: "Enchanting Orchids Bouquet",
   price: 999,
   images: [

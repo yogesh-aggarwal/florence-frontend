@@ -7,7 +7,6 @@ import { IMAGES } from "../Lib/Constants";
 import { GoogleLogin } from "@react-oauth/google";
 import { userStore } from "../Lib/State";
 import { networkRequest } from "../Lib/helpers";
-import google from "../assets/google.png";
 import Logo from "../assets/logo.png";
 
 export default function Login() {

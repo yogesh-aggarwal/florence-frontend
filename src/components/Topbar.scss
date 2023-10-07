@@ -6,6 +6,8 @@
 
   position: sticky;
   top: 0rem;
+  z-index: 100000;
+  
 
   border-bottom: 1px solid #eee;
 
@@ -22,6 +24,7 @@
     background: #fff;
 
     #app {
+      cursor: pointer;
       display: flex;
       align-items: center;
       #logo {

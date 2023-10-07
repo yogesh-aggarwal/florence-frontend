@@ -1,38 +1,11 @@
 import "./Listing.scss";
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { toTitleCase, useNetworkRequest } from "../Lib/helpers";
-import Topbar from "../components/Topbar";
-import { Product_t } from "../Lib/Types/product";
+import { useParams } from "react-router-dom";
 import { productsStore, useProducts } from "../Lib/State";
-
-function ProductCard(props: { product: Product_t }) {
-  const navigate = useNavigate();
-  return (
-    <div
-      className="product"
-      onClick={() => {
-        // navigate("/product/" + props.product._id);
-        navigate(`/product/${props.product._id}`);
-      }}
-    >
-      <div className="like">
-        <i className="fi fi-rr-heart"></i>
-      </div>
-      <div className="image">
-        <img src={props.product.images[0]} />
-      </div>
-      <div className="prodInfo">
-        <div className="podTitle">
-          {props.product.title.slice(0, 45).trim()}
-          {props.product.title.length > 45 ? "..." : ""}
-        </div>
-        <div className="price">₹ {props.product.price}</div>
-      </div>
-    </div>
-  );
-}
+import { Product_t } from "../Lib/Types/product";
+import { toTitleCase, useNetworkRequest } from "../Lib/helpers";
+import { ProductCard } from "../components/ProductCard";
 
 export default function Listing() {
   const params = useParams() as { category: string };

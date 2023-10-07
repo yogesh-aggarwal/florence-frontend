@@ -16,7 +16,12 @@ export default function Topbar() {
       className={page === "login" || page === "signup" ? "active" : ""}
     >
       <div className="leftTitle">
-        <div id="app">
+        <div
+          id="app"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <div id="logo">
             <img src={Logo} alt="" />
           </div>
