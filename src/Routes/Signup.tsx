@@ -103,7 +103,6 @@ export default function Signup() {
                       if (res.status === 200) {
                         localStorage.setItem("token", body["token"]);
                         navigate("/listing");
-                        console.log(body["user"]);
                         userStore.set(body["user"]);
                       } else {
                         setError(body["message"]);
