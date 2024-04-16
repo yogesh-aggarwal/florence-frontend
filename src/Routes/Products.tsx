@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsStore, useCart, useProducts, useUser } from "../Lib/State";
 import { ProductDescription_t, Product_t } from "../Lib/Types/product";
-import { useNetworkRequest } from "../Lib/helpers";
-import Topbar from "../components/Topbar";
 import { Cart } from "../Lib/cart";
+import { useNetworkRequest } from "../Lib/helpers";
 
 function ProductInfo(props: {
   heading: string;

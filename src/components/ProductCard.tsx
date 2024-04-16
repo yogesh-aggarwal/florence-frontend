@@ -1,8 +1,9 @@
 import "./ProductCard.scss";
+
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Product_t } from "../Lib/Types/product";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { useUser, userStore } from "../Lib/State";
+import { Product_t } from "../Lib/Types/product";
 import { networkRequest } from "../Lib/helpers";
 
 export function ProductCard(props: { product: Product_t }) {
