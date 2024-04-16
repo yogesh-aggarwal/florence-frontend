@@ -2,7 +2,8 @@ import "./Topbar.scss";
 
 import Logo from "../assets/logo.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useUser } from "../Lib/State";
+import { cartStore, useCart, useUser } from "../Lib/State";
+import { useEffect, useState } from "react";
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -10,6 +11,16 @@ export default function Topbar() {
   const user = useUser();
   const location = useLocation();
   const page = location.pathname.slice(1);
+  const cart = useCart();
+
+  const [cartValue, setCartValue] = useState<number>(0);
+
+  useEffect(() => {
+    let num = { ...cartStore.value() };
+    let arr = Object.keys(num);
+    setCartValue(arr.length);
+  }, [cart]);
+
   return (
     <div
       id="topbar"
@@ -89,6 +100,7 @@ export default function Topbar() {
           }}
         >
           <i className="fi fi-sr-shopping-cart"></i>
+          {!cartValue ? <></> : <div className="cartValue">{cartValue}</div>}
         </div>
         <div
           className="profile"
