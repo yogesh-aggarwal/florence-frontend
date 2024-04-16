@@ -1,6 +1,14 @@
 .CartComponent {
   position: relative;
-
+  .noEle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 65vh;
+      // width: 22vh;
+    }
+  }
   .body {
     gap: 2rem;
     display: flex;
@@ -143,10 +151,18 @@
       position: sticky;
       top: 0;
 
-      .heading {
-        height: 7rem;
+      .head {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: space-between;
+        .heading {
+          height: 7rem;
+          display: flex;
+          align-items: flex-end;
+        }
+        .clearCart {
+          cursor: pointer;
+        }
       }
 
       .content {
@@ -185,11 +201,11 @@
             }
 
             &.head {
-							border-bottom: 1px solid #000;
+              border-bottom: 1px solid #000;
 
               span {
                 font-weight: 600;
-								text-decoration: none;
+                text-decoration: none;
               }
             }
           }
