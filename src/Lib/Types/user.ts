@@ -12,4 +12,5 @@ export type User_t = {
   deliveryAddresses: Address_t[];
   mobileNumbers: string[];
   dp: string;
+  wishlist:string[]
 };

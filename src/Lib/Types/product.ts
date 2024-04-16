@@ -15,6 +15,7 @@ export type ProductReview_t = {
 
 export type Product_t = {
   _id: string;
+  id: string;
   title: string;
   price: number;
   images: string[];

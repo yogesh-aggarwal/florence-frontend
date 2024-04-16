@@ -11,6 +11,7 @@ import Profile from "./Routes/Profile";
 import Order from "./Routes/Order";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Topbar from "./components/Topbar";
+import Wishlist from "./Routes/Wishlist";
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route path="/product/:id" element={<Products />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/order/:id" element={<Order />} />
-
+          <Route path="/wishlist" element={<Wishlist/>}/>
           <Route path="/listing/:category" element={<Listing />} />
           <Route
             path="/listing"
