@@ -4,7 +4,7 @@ import "./Signup.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "../Lib/State";
-import Logo from "../assets/logo.png";
+import Logo from "../Assets/logo.png";
 // const { useEffect, useState } = require("react");
 
 const IMAGES = [

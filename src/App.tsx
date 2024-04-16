@@ -12,6 +12,7 @@ import Order from "./Routes/Order";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Topbar from "./Components/Topbar";
 import Wishlist from "./Routes/Wishlist";
+import img from "./Assets/404img.svg"
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Topbar />
 
         <Routes>
-          <Route path="/not-found" element={<div>Not found 404</div>} />
+          <Route path="/not-found" element={<div className="img"><img src={img} alt="" /></div>} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

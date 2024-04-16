@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../Lib/Constants";
 import { userStore } from "../Lib/State";
 import { networkRequest } from "../Lib/helpers";
-import Logo from "../assets/logo.png";
+import Logo from "../Assets/logo.png";
 
 export default function Login() {
   const navigate = useNavigate();

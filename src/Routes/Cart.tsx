@@ -6,7 +6,7 @@ import { useCart, useProducts, useUser, cartStore } from "../Lib/State";
 import { Cart as CartActions } from "../Lib/cart";
 import { networkRequest } from "../Lib/helpers";
 import { useNavigate } from "react-router-dom";
-import EmpltycartImg from "../assets/emptycart.svg";
+import EmpltycartImg from "../Assets/emptycart.svg"
 
 type CartProduct_t = {
   id: string;

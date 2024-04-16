@@ -1,6 +1,6 @@
 import "./Topbar.scss";
 
-import Logo from "../assets/logo.png";
+import Logo from "../Assets/logo.png";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { cartStore, useCart, useUser } from "../Lib/State";
 import { useEffect, useState } from "react";
