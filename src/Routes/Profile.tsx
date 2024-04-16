@@ -1,11 +1,10 @@
 import "./Profile.scss";
 
-import Topbar from "../components/Topbar";
-import { useUser, userStore } from "../Lib/State";
-import { useNavigate } from "react-router-dom";
-import { useNetworkRequest } from "../Lib/helpers";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser, userStore } from "../Lib/State";
 import { Order_t } from "../Lib/Types/order";
+import { useNetworkRequest } from "../Lib/helpers";
 
 export default function Profile() {
   const user = useUser();

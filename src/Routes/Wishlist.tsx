@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { useUser } from "../Lib/State";
 import "./Wishlist.scss";
+
+import { useState } from "react";
+import { useUser } from "../Lib/State";
 import { Product_t } from "../Lib/Types/product";
-import { ProductCard } from "../components/ProductCard";
-import { networkRequest, useNetworkRequest } from "../Lib/helpers";
+import { useNetworkRequest } from "../Lib/helpers";
+import { ProductCard } from "../Components/ProductCard";
 
 export default function Wishlist() {
   const user = useUser();

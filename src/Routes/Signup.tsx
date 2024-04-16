@@ -3,8 +3,8 @@ import "./Signup.scss";
 // Importing the image
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.png";
 import { userStore } from "../Lib/State";
+import Logo from "../assets/logo.png";
 // const { useEffect, useState } = require("react");
 
 const IMAGES = [

@@ -10,7 +10,7 @@ import Listing from "./Routes/Listing";
 import Profile from "./Routes/Profile";
 import Order from "./Routes/Order";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import Topbar from "./components/Topbar";
+import Topbar from "./Components/Topbar";
 import Wishlist from "./Routes/Wishlist";
 
 function App() {

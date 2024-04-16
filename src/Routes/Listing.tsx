@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { productsStore, useProducts } from "../Lib/State";
 import { Product_t } from "../Lib/Types/product";
 import { toTitleCase, useNetworkRequest } from "../Lib/helpers";
-import { ProductCard } from "../components/ProductCard";
+import { ProductCard } from "../Components/ProductCard";
 
 export default function Listing() {
   const params = useParams() as { category: string };

@@ -1,9 +1,10 @@
+import "./Home.scss";
+
 import { useState } from "react";
-import { useUser, userStore } from "../Lib/State";
+import { useUser } from "../Lib/State";
 import { Product_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
-import { ProductCard } from "../components/ProductCard";
-import "./Home.scss";
+import { ProductCard } from "../Components/ProductCard";
 //
 
 function ProductByColor(props: { proArr: Product_t[] | null }) {
