@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useUser, userStore } from "../Lib/State";
 import { Product_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
-import { SAMPLE_PRODUCT } from "../Lib/misc";
 import { ProductCard } from "../components/ProductCard";
 import "./Home.scss";
 //
+
 function ProductByColor(props: { proArr: Product_t[] | null }) {
   if (props.proArr)
     return (
@@ -28,9 +29,11 @@ function getFloralImageURL(name: string) {
 }
 
 export default function Home() {
+  const user = useUser();
   const [festive, setFestive] = useState<null | Record<string, Product_t[]>>(
     null
   );
+  const [recommended, setRecommended] = useState<null | Product_t[]>(null);
   const [colorProducts, setColorProduct] = useState<null | Record<
     string,
     Product_t[]
@@ -45,19 +48,52 @@ export default function Home() {
     null
   );
 
-  useNetworkRequest("POST", "/getHomeData", {}, async (data: Response) => {
-    const body = await data.json();
-    const res = body["response"];
-    let keys = Object.keys(res);
+  useNetworkRequest(
+    "POST",
+    "/getHomeData",
+    { email: user?.email },
+    async (data: Response) => {
+      const body = await data.json();
+      const res = body["response"];
+      let keys = Object.keys(res);
+      console.log(res["user"]);
+      // userStore.set({
+      //   _id: res["user"]["_id"],
+      //   email: res["user"]["email"],
+      //   name: res["user"]["name"],
+      //   password: res["user"]["password"],
+      //   deliveryAddresses: res["user"]["deliveryAddresses"],
+      //   mobileNumbers: res["user"][" mobileNumbers"],
+      //   dp: res["user"]["dp"],
+      //   wishlist : res["user"]["wishlist"]}
+      // )
+      setRecommended(res["recommendedProducts"]);
+      setFestive(res[keys[0]]);
+      setColorProduct(res[keys[1]]);
+      setFloral(res[keys[2]]);
 
-    setFestive(res[keys[0]]);
-    setColorProduct(res[keys[1]]);
-    setFloral(res[keys[2]]);
-  });
-  let arr = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+      scrollTo({ top: 0, behavior: "instant" });
+    }
+  );
+  let arr: number[] = [];
 
   return (
     <div className="HomeComponent">
+      {/* <div className="banner"></div> */}
+      {recommended ? (
+        <div className="section">
+          <div className="category">
+            ✨ Recommended Products Based On Your Choice
+          </div>
+          <div className="allProducts">
+            {recommended.map((pro, i) => {
+              return <ProductCard key={i} product={pro} />;
+            })}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
       {festive ? (
         <div className="section">
           <div className="category">This Festive Season</div>
@@ -106,7 +142,6 @@ export default function Home() {
       ) : (
         <div></div>
       )}
-
       {floral ? (
         <div className="section">
           <div className="category">
@@ -126,7 +161,6 @@ export default function Home() {
                       onClick={() => {
                         setProductOnOdor(floral[odor]);
                         setCurrentImage(odor);
-                        console.log(odor);
                       }}
                     >
                       <img src={getFloralImageURL(odor)} alt="" />
@@ -146,8 +180,7 @@ export default function Home() {
       ) : (
         <div></div>
       )}
-
-      <div className="section">
+      {/* <div className="section">
         <div className="category">Birthday</div>
         <div className="allProducts">
           {arr.map((i) => {
@@ -155,7 +188,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
       <div className="section">
         <div className="category">Love & Romance</div>
         <div className="allProducts">
@@ -164,7 +196,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
       <div className="section">
         <div className="category">Anniversary</div>
         <div className="allProducts">
@@ -173,7 +204,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
       <div className="section">
         <div className="category">Celebration</div>
         <div className="allProducts">
@@ -182,7 +212,6 @@ export default function Home() {
           })}
         </div>
       </div>
-
       <div className="section">
         <div className="category">Sympathy & Funeral</div>
         <div className="allProducts">
@@ -190,7 +219,7 @@ export default function Home() {
             return <ProductCard key={i} product={SAMPLE_PRODUCT} />;
           })}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

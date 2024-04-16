@@ -1,19 +1,18 @@
 .HomeComponent {
+  padding: 0 5%;
+
   .banner {
     margin-top: 2rem;
-    margin-left: 5%;
-    margin-right: 5%;
     z-index: 100;
     margin-bottom: 2rem;
 
-    height: 23rem;
-    width: 90%;
+    height: 24rem;
+    width: 100%;
     border-radius: 1rem;
     background: #fafafa;
   }
 
   .section {
-    padding: 0 5%;
     margin-bottom: 1.5rem;
 
     .category {
