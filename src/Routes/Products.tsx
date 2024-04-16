@@ -2,7 +2,7 @@ import "./Products.scss";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productsStore, useCart, useProducts } from "../Lib/State";
+import { productsStore, useCart, useProducts, useUser } from "../Lib/State";
 import { ProductDescription_t, Product_t } from "../Lib/Types/product";
 import { useNetworkRequest } from "../Lib/helpers";
 import Topbar from "../components/Topbar";
@@ -33,15 +33,16 @@ function ProductInfo(props: {
 
 export default function Product() {
   const params = useParams();
-  const product = useProducts().find((product) => product._id === params.id);
+  const product = useProducts().find((product) => product.id === params.id);
   const [url, setUrl] = useState<string | undefined>(product?.images[0]);
 
   const cart = useCart();
+  const user = useUser();
 
   useNetworkRequest(
     "POST",
     "/getProductById",
-    { id: params.id },
+    { id: params.id, email: user?.email },
     async (res: Response) => {
       const body = await res.json();
 
@@ -50,7 +51,7 @@ export default function Product() {
 
       const products = productsStore.value();
       const doesExist = products.find(
-        (product) => product._id === selectedProduct._id
+        (product) => product.id === selectedProduct.id
       );
       if (doesExist) return;
 
@@ -130,7 +131,6 @@ export default function Product() {
                   (product.images.indexOf(url) === 0 ? "disabled" : "")
                 }
                 onClick={() => {
-                  // console.log(product.images);
                   const imagePos = product.images.indexOf(url);
                   if (imagePos === 0) return;
                   const prevImage = product.images[imagePos - 1];
@@ -184,25 +184,34 @@ export default function Product() {
           <div className="actions">
             <div className="price">
               <div className="heading">Price</div>
-              <div className="rate">INR {product.price}</div>
+              {product.discountInPercent > 0 ? (
+                <div className="discount">
+                <div className="rate">INR {product.price+(product.price*(product.discountInPercent/100))}</div>
+                <div className="line"></div>
+                <div className="discountPrice">INR {product.price}</div>
+                </div>
+                
+              ) : (
+                <div className="rate">INR {product.price}</div>
+              )}
             </div>
             <div className="cart">
-              {!cart[product._id] && (
-                <div className="button" onClick={() => Cart.add(product._id)}>
+              {!cart[product.id] && (
+                <div className="button" onClick={() => Cart.add(product.id)}>
                   <i className="fi fi-sr-shopping-cart"></i>
                   <span>Add to cart</span>
                 </div>
               )}
-              {cart[product._id] > 0 && (
+              {cart[product.id] > 0 && (
                 <div className="numbers">
                   <div
                     className="action"
-                    onClick={() => Cart.deleteProduct(product._id)}
+                    onClick={() => Cart.deleteProduct(product.id)}
                   >
                     -
                   </div>
-                  <div className="number">{cart[product._id]}</div>
-                  <div className="action" onClick={() => Cart.add(product._id)}>
+                  <div className="number">{cart[product.id]}</div>
+                  <div className="action" onClick={() => Cart.add(product.id)}>
                     +
                   </div>
                 </div>

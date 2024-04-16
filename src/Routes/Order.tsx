@@ -2,14 +2,13 @@ import "./Order.scss";
 
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { orderstore } from "../Lib/State";
 import { OrderStatus, Order_t, OrderedProducts_t } from "../Lib/Types/order";
 import {
   getDateInFormat,
   networkRequest,
   useNetworkRequest,
 } from "../Lib/helpers";
-import Topbar from "../components/Topbar";
-import { orderstore } from "../Lib/State";
 
 export default function Order() {
   const navigate = useNavigate();
@@ -40,7 +39,6 @@ export default function Order() {
 
   if (!order || !orderedProducts) return;
   let status = order.currentStatus;
-  console.log(status);
   return (
     <div className="OrderComponent">
       <div className="orders">
