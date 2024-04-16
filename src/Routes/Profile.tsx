@@ -13,7 +13,6 @@ export default function Profile() {
   useNetworkRequest("POST", "/getOrderByUserId", {}, async (res) => {
     const order = (await res.json()).orders;
     setOrders(order);
-    console.log(order);
   });
   // ;
   const navigate = useNavigate();
@@ -58,6 +57,20 @@ export default function Profile() {
               <span>Add address</span>
             </div>
           )}
+          {user ? (
+            <div
+              className="field"
+              onClick={() => {
+                navigate("/wishlist");
+              }}
+            >
+              <i className="fi fi-sr-heart"></i>
+              <span>{"Wishlist"}</span>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div
             className="field"
             onClick={() => {
