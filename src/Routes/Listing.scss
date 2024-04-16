@@ -14,6 +14,8 @@
       height: calc(100vh - 6rem - 1px);
       overflow-y: auto;
 
+
+
       .section {
         padding: 1.5rem 0;
         border-bottom: 1px solid #eee;
@@ -70,6 +72,9 @@
 
       overflow-y: auto;
       height: calc(100vh - 6rem - 1px);
+
+      border-left: 1px solid #eee;
+
 
       .category {
         font-size: 22px;

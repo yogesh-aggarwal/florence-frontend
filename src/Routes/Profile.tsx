@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser, userStore } from "../Lib/State";
 import { Order_t } from "../Lib/Types/order";
 import { useNetworkRequest } from "../Lib/helpers";
+import img from "../Assets/404img.svg";
 
 export default function Profile() {
   const user = useUser();
@@ -81,8 +82,14 @@ export default function Profile() {
             <span>Logout</span>
           </div>
         </div>
+        {/* <div className="line"></div> */}
         {!orders?.length ? (
-          <div className="noOrders"> No orders found</div>
+          <div className="right">
+            <div className="noOrders">
+              <div className="mgs">No orders found</div>
+              <img src={img} alt="" />
+            </div>
+          </div>
         ) : (
           <div className="right">
             <div className="heading">Orders</div>
