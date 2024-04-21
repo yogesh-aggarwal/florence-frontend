@@ -25,11 +25,11 @@ input {
     cursor: pointer;
   }
 }
-.img{
+.img {
   display: flex;
-  
-}
-img{
-  height: 45rem;
-  width: 110rem;
+
+  img {
+    height: 45rem;
+    width: 110rem;
+  }
 }

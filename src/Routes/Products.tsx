@@ -1,11 +1,16 @@
 import "./Products.scss";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsStore, useCart, useProducts, useUser } from "../Lib/State";
-import { ProductDescription_t, Product_t } from "../Lib/Types/product";
+import {
+  ProductDescription_t,
+  ProductReview_t,
+  Product_t,
+} from "../Lib/Types/product";
 import { Cart } from "../Lib/cart";
 import { useNetworkRequest } from "../Lib/helpers";
+import { ReviewCard } from "../Components/ReviewCard";
 
 function ProductInfo(props: {
   heading: string;
@@ -34,6 +39,7 @@ export default function Product() {
   const params = useParams();
   const product = useProducts().find((product) => product.id === params.id);
   const [url, setUrl] = useState<string | undefined>(product?.images[0]);
+  const [productImages, setProductImages] = useState<string[] | undefined>([]);
 
   const cart = useCart();
   const user = useUser();
@@ -101,6 +107,36 @@ export default function Product() {
     };
   }, [product, url]);
 
+  const sortedProductReviews = useMemo(() => {
+    if (!product) return;
+    if (!product.reviews || product?.reviews.length < 0) return;
+    function sortByStars(review1: ProductReview_t, review2: ProductReview_t) {
+      return (review2.starsGiven = review1.starsGiven);
+    }
+
+    return product.reviews.sort(sortByStars);
+  }, [product?.reviews]);
+
+  const imageWindow = useCallback(() => {
+    if (!product || !product.images) return;
+    if (product.images.length <= 4) return;
+    let windowImages = [];
+    const window = [];
+    const images = product?.images;
+    for (let i = 0; i < images?.length; i++) {
+      if (window.length <= 4) {
+        windowImages.push(images[i]);
+      }
+      if (window.length === 4) {
+        setProductImages(images);
+      }
+
+      images.shift();
+      images.push(images[i]);
+      setProductImages(images);
+    }
+  }, []);
+
   if (!product || !url) return <div>Loading</div>;
 
   return (
@@ -108,21 +144,25 @@ export default function Product() {
       <div id="body">
         <div id="left">
           <div id="slider">
-            {product.images.map((image) => {
-              return (
-                <img
-                  src={image}
-                  // style={{
-                  //   border: image === url ? "2px solid transparent" : "none",
-                  //   outline: image === url ? "1px solid #000" : "none",
-                  // }}
-                  className={image === url ? "active" : ""}
-                  onClick={() => {
-                    setUrl(image);
-                  }}
-                />
-              );
-            })}
+            {product.images.length <= 4 ? (
+              product.images.map((image) => {
+                return (
+                  <img
+                    src={image}
+                    // style={{
+                    //   border: image === url ? "2px solid transparent" : "none",
+                    //   outline: image === url ? "1px solid #000" : "none",
+                    // }}
+                    className={image === url ? "active" : ""}
+                    onClick={() => {
+                      setUrl(image);
+                    }}
+                  />
+                );
+              })
+            ) : (
+              <></>
+            )}
             <div className="icons">
               <div
                 className={
@@ -182,16 +222,41 @@ export default function Product() {
           </div>
           <div className="actions">
             <div className="price">
-              <div className="heading">Price</div>
+              {/* <div className="heading">Price</div> */}
               {product.discountInPercent > 0 ? (
                 <div className="discount">
-                <div className="rate">INR {product.price+(product.price*(product.discountInPercent/100))}</div>
-                <div className="line"></div>
-                <div className="discountPrice">INR {product.price}</div>
+                  <div className="actualPrice">
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "INR",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    }).format(
+                      Math.round(
+                        product.price +
+                          product.price * (product.discountInPercent / 100)
+                      )
+                    )}
+                  </div>
+
+                  <div className="rate">
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "INR",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    }).format(Math.round(product.price))}
+                  </div>
                 </div>
-                
               ) : (
-                <div className="rate">INR {product.price}</div>
+                <div className="rate">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "INR",
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  }).format(Math.round(product.price))}
+                </div>
               )}
             </div>
             <div className="cart">
@@ -228,6 +293,13 @@ export default function Product() {
               content={product.deliveryInfo}
             />
           </div>
+        </div>
+      </div>
+      <div className="reviews">
+        <div className="allReviews">
+          {product.reviews.map((review, i) => {
+            return <ReviewCard key={i} productReview={review} />;
+          })}
         </div>
       </div>
     </div>

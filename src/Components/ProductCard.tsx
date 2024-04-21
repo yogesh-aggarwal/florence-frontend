@@ -8,6 +8,7 @@ import { networkRequest } from "../Lib/helpers";
 
 export function ProductCard(props: { product: Product_t }) {
   const user = useUser();
+  
   const navigate = useNavigate();
 
   const wishlistIcon = useMemo(() => {
@@ -51,11 +52,11 @@ export function ProductCard(props: { product: Product_t }) {
 
   return (
     <div className="product">
-      {user && (
+      { user && (
         <div className="like" onClick={handleWishlistButtonClick}>
           <i className={wishlistIcon}></i>
         </div>
-      )}
+       )}
       <div
         className="image"
         onClick={() => {

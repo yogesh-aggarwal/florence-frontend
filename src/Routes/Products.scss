@@ -151,10 +151,18 @@
         justify-content: space-between;
 
         .price {
+          display: flex;
+          gap: 10px;
           .heading {
             font-weight: 600;
             margin-bottom: 0.5rem;
             opacity: 0.5;
+          }
+          .discount{
+            .actualPrice{
+              text-decoration: line-through;
+              opacity: 50%;
+            }
           }
 
           .rate {
@@ -224,6 +232,22 @@
             font-weight: 600;
           }
         }
+      }
+    }
+  }
+  .reviews{
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: min-content max-content;
+
+    .allReviews {
+      gap: 1.5rem;
+      display: flex;
+      // flex-wrap: wrap;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
   }

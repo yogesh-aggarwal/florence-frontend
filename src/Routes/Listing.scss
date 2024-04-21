@@ -91,7 +91,11 @@
         gap: 1.5rem;
         display: flex;
         flex-wrap: wrap;
-
+        ProductCard{
+          &:hover{
+            opacity: 70%;
+          }
+        }
         
       }
     }

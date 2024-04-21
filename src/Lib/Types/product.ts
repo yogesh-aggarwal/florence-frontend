@@ -6,11 +6,11 @@ export type ProductDescription_t = {
 
 export type ProductReview_t = {
   id: string;
-  _id: string;
   userID: string;
   starsGiven: number;
   review: string;
   whenReviewed: string;
+  name:string;
 };
 
 export type Product_t = {
