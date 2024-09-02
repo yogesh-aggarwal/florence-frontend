@@ -1,7 +1,6 @@
-export type ProductDescription_t = {
-	_id: string
+export type ProductDescriptionItem_t = {
 	type: "para" | "list"
-	content: string | string[]
+	content: string | ProductDescriptionItem_t[]
 }
 
 export type ProductReview_t = {
@@ -10,18 +9,16 @@ export type ProductReview_t = {
 	starsGiven: number
 	review: string
 	whenReviewed: string
-	name: string
 }
 
 export type Product_t = {
 	_id: string
-	id: string
 	title: string
 	price: number
 	images: string[]
-	description: ProductDescription_t[]
-	deliveryInfo: ProductDescription_t[]
-	careInstructions: ProductDescription_t[]
+	description: ProductDescriptionItem_t[]
+	deliveryInfo: ProductDescriptionItem_t[]
+	careInstructions: ProductDescriptionItem_t[]
 	discountInPercent: number
 	stock: number
 	deliveryCharges: number
