@@ -1,123 +1,122 @@
 #topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 2rem;
 
-  position: sticky;
-  top: 0rem;
-  z-index: 100000;
+   position: sticky;
+   top: 0rem;
+   z-index: 100000;
 
-  border-bottom: 1px solid #eee;
+   border-bottom: 1px solid #eee;
 
-  &.active {
-    display: none;
-  }
+   &.active {
+      display: none;
+   }
 
-  .leftTitle {
-    display: flex;
-    align-items: center;
-    gap: 8rem;
-
-    height: 6rem;
-    background: #fff;
-
-    #app {
-      cursor: pointer;
+   .leftTitle {
       display: flex;
       align-items: center;
-      #logo {
-        display: inline-flex;
-        img {
-          width: 3rem;
-          height: 3rem;
-          margin-right: 12px;
-        }
-      }
-      #florence {
-        font-family: "domine";
-        font-weight: 700;
-        font-size: 1.6rem;
-        letter-spacing: -0.5px;
-      }
-    }
+      gap: 8rem;
 
-    #catagory {
+      height: 6rem;
+      background: #fff;
+
+      #app {
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         #logo {
+            display: inline-flex;
+            img {
+               width: 3rem;
+               height: 3rem;
+               margin-right: 12px;
+            }
+         }
+         #florence {
+            font-family: "domine";
+            font-weight: 700;
+            font-size: 1.6rem;
+            letter-spacing: -0.5px;
+         }
+      }
+
+      #catagory {
+         display: flex;
+         align-items: center;
+         gap: 1.5rem;
+         font-weight: 500;
+         color: #7e7e7e;
+
+         // #selectCatory {
+         //   color: black;
+         // }
+
+         .category {
+            cursor: pointer;
+
+            &.active {
+               color: black;
+               font-weight: 600;
+            }
+         }
+      }
+   }
+   .rightTitle {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
-      font-weight: 500;
-      color: #7e7e7e;
+      justify-content: center;
+      gap: 2rem;
 
-      // #selectCatory {
-      //   color: black;
-      // }
+      .cart {
+         position: relative;
 
-      .category {
-        cursor: pointer;
+         i {
+            font-size: 24px;
+            cursor: pointer;
+         }
 
-        &.active {
-          color: black;
-          font-weight: 600;
-        }
+         .cartValue {
+            // Positioning
+            position: absolute;
+            top: -5px;
+            right: -10px;
+
+            // Dimensions
+            width: 18px;
+            height: 18px;
+            border-radius: 100%;
+
+            // Coloring
+            color: white;
+            background: black;
+            border: 2px solid white;
+
+            // Font/Text
+            font-size: 0.8rem;
+            font-weight: 600;
+
+            // Layout
+            display: flex;
+            align-items: center;
+            justify-content: center;
+         }
       }
-    }
-  }
-  .rightTitle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-
-    .cart {
-      position: relative;
-
-      i {
-        font-size: 24px;
-        cursor: pointer;
+      .profile {
+         i {
+            font-size: 30px;
+            cursor: pointer;
+         }
       }
-
-      .cartValue {
-        // Positioning
-        position: absolute;
-        top: -5px;
-        right: -10px;
-        
-        // Dimensions
-        width: 18px;
-        height: 18px;
-        border-radius: 100%;
-        
-        // Coloring
-        color: white;
-        background: black;
-        border: 2px solid white;
-        
-        // Font/Text
-        font-size: 0.8rem;
-        font-weight: 600;
-        
-        // Layout
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
+      .dp {
+         img {
+            height: 2.5rem;
+            width: 2.5rem;
+            border-radius: 100%;
+         }
       }
-    }
-    .profile {
-      i {
-        font-size: 30px;
-        cursor: pointer;
-      }
-    }
-    .dp {
-      img {
-        height: 2.5rem;
-        width: 2.5rem;
-        border-radius: 100%;
-      }
-    }
-  }
+   }
 }
 #divider {
 }

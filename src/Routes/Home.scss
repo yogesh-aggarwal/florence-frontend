@@ -1,117 +1,117 @@
 .HomeComponent {
-  padding: 0 5%;
+   padding: 0 5%;
 
-  .banner {
-    margin-top: 2rem;
-    z-index: 100;
-    margin-bottom: 2rem;
-
-    height: 24rem;
-    width: 100%;
-    border-radius: 1rem;
-    background: #fafafa;
-  }
-
-  .section {
-    margin-bottom: 1.5rem;
-
-    .category {
-      font-size: 22px;
-      font-weight: 600;
-      padding: 2rem 0;
-      background: #fff;
-
-      position: sticky;
-      top: 0;
+   .banner {
+      margin-top: 2rem;
       z-index: 100;
-    }
+      margin-bottom: 2rem;
 
-    .allProducts {
-      gap: 1.5rem;
-      display: flex;
-      // flex-wrap: wrap;
-      overflow: auto;
-      &::-webkit-scrollbar {
-        display: none;
+      height: 24rem;
+      width: 100%;
+      border-radius: 1rem;
+      background: #fafafa;
+   }
+
+   .section {
+      margin-bottom: 1.5rem;
+
+      .category {
+         font-size: 22px;
+         font-weight: 600;
+         padding: 2rem 0;
+         background: #fff;
+
+         position: sticky;
+         top: 0;
+         z-index: 100;
       }
 
-      &.category-section {
-        display: grid;
-        grid-template-rows: min-content max-content;
-
-        .products {
-          gap: 1.5rem;
-          display: flex;
-          // flex-wrap: wrap;
-          overflow-x: auto;
-
-          &::-webkit-scrollbar {
+      .allProducts {
+         gap: 1.5rem;
+         display: flex;
+         // flex-wrap: wrap;
+         overflow: auto;
+         &::-webkit-scrollbar {
             display: none;
-          }
-        }
-      }
+         }
 
-      .colors {
-        gap: 1.5rem;
-        display: flex;
-        flex-wrap: wrap;
+         &.category-section {
+            display: grid;
+            grid-template-rows: min-content max-content;
 
-        .color {
-          height: 4.5rem;
-          width: 10rem;
-          border-radius: 1.5rem;
+            .products {
+               gap: 1.5rem;
+               display: flex;
+               // flex-wrap: wrap;
+               overflow-x: auto;
 
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 600;
-          cursor: pointer;
+               &::-webkit-scrollbar {
+                  display: none;
+               }
+            }
+         }
 
-          &.active {
-            border: 2px #eee solid;
-            opacity: 80%;
-            height: 4.5rem;
-            width: 10rem;
-            border-radius: 1.5rem;
-
+         .colors {
+            gap: 1.5rem;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            cursor: pointer;
+            flex-wrap: wrap;
 
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              border-radius: inherit;
-              opacity: 0.5;
+            .color {
+               height: 4.5rem;
+               width: 10rem;
+               border-radius: 1.5rem;
+
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               font-weight: 600;
+               cursor: pointer;
+
+               &.active {
+                  border: 2px #eee solid;
+                  opacity: 80%;
+                  height: 4.5rem;
+                  width: 10rem;
+                  border-radius: 1.5rem;
+
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-weight: 600;
+                  cursor: pointer;
+
+                  img {
+                     width: 100%;
+                     height: 100%;
+                     object-fit: cover;
+                     border-radius: inherit;
+                     opacity: 0.5;
+                  }
+
+                  span {
+                     position: absolute;
+                     color: #000;
+                  }
+               }
+
+               img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  border-radius: inherit;
+                  opacity: 0.5;
+               }
+
+               span {
+                  position: absolute;
+                  color: #000;
+               }
             }
 
-            span {
-              position: absolute;
-              color: #000;
+            .color:hover {
+               opacity: 75%;
             }
-          }
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: inherit;
-            opacity: 0.5;
-          }
-
-          span {
-            position: absolute;
-            color: #000;
-          }
-        }
-
-        .color:hover {
-          opacity: 75%;
-        }
+         }
       }
-    }
-  }
+   }
 }

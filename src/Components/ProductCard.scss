@@ -1,79 +1,77 @@
 .product {
-  border: 1px #eee solid;
-  border-radius: 1rem;
-  // height: 24rem;
-  min-width: 20rem;
-  max-width: 20rem;
-  position: relative;
-  cursor: pointer;
+   border: 1px #eee solid;
+   border-radius: 1rem;
+   // height: 24rem;
+   min-width: 20rem;
+   max-width: 20rem;
+   position: relative;
+   cursor: pointer;
 
-  
+   .like {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 3rem;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
 
-  .like {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 3rem;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-
-    i {
-      font-size: 1.2rem;
-      margin-top: 6px;
-    }
-  }
-  .image {
-    height: 75%;
-    background: #fafafa;
-    border-radius: 1rem;
-    overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      object-fit: cover;
-    }
-  }
-  .prodInfo {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding: 1rem 12px;
-
-    gap: 1rem;
-    display: flex;
-    // align-items: center;
-    justify-content: space-between;
-    .podTitle {
-      font-weight: 400;
-      font-size: 18px;
-    }
-    .price {
-      font-weight: 500;
-      color: #383838;
-      background-color: #eee;
-      border-radius: 1rem;
-      padding: 4px 12px;
-      white-space: nowrap;
-      height: min-content;
-    }
-  }
-
-  &:hover {
-    background: #eee;
-    opacity: 70%;
-
-    .image {
-      img {
-        transform: scale(1.1);
+      i {
+         font-size: 1.2rem;
+         margin-top: 6px;
       }
-    }
-  }
+   }
+   .image {
+      height: 75%;
+      background: #fafafa;
+      border-radius: 1rem;
+      overflow: hidden;
+
+      img {
+         width: 100%;
+         height: 100%;
+         border-radius: inherit;
+         object-fit: cover;
+      }
+   }
+   .prodInfo {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding: 1rem 12px;
+
+      gap: 1rem;
+      display: flex;
+      // align-items: center;
+      justify-content: space-between;
+      .podTitle {
+         font-weight: 400;
+         font-size: 18px;
+      }
+      .price {
+         font-weight: 500;
+         color: #383838;
+         background-color: #eee;
+         border-radius: 1rem;
+         padding: 4px 12px;
+         white-space: nowrap;
+         height: min-content;
+      }
+   }
+
+   &:hover {
+      background: #eee;
+      opacity: 70%;
+
+      .image {
+         img {
+            transform: scale(1.1);
+         }
+      }
+   }
 }

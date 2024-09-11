@@ -1,166 +1,165 @@
-
 .OrderComponent {
-  .orders {
-  }
-  .body {
-    padding: 3rem;
+   .orders {
+   }
+   .body {
+      padding: 3rem;
 
-    .heading {
-      margin-top: 10px;
-      color: black;
-      font-weight: 500;
-      font-size: 2rem;
+      .heading {
+         margin-top: 10px;
+         color: black;
+         font-weight: 500;
+         font-size: 2rem;
 
-      margin-bottom: 2rem;
-    }
-  }
-
-  .ori {
-    gap: 48px;
-    display: grid;
-    grid-template-columns: 1fr 25rem;
-
-    .left {
-      .cards {
-        gap: 1rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
-
-        margin-top: 1rem;
-
-        .card {
-          display: flex;
-          // box-shadow: 0px 2px 15px #eee;
-          border: 1px solid #eee;
-          cursor: pointer;
-          height: 10rem;
-          border-radius: 1.5rem;
-
-          img {
-            width: 40%;
-            height: 100%;
-
-            object-fit: cover;
-
-            border-top-left-radius: inherit;
-            border-bottom-left-radius: inherit;
-          }
-
-          .info {
-            padding: 1.1rem;
-            width: 100%;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            .title {
-              color: black;
-              font-size: 18px;
-              font-weight: 600;
-            }
-
-            .other {
-              opacity: 0.5;
-              .basic {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                font-size: 14px;
-                font-weight: 500;
-                margin-top: 1rem;
-              }
-
-              .date {
-                font-size: 16px;
-                font-weight: 400;
-              }
-
-              .status {
-                font-weight: 500;
-                font-size: 16px;
-              }
-            }
-          }
-        }
+         margin-bottom: 2rem;
       }
-    }
-    .right {
-      // box-shadow: 0px 2px 15px #eee;
-      border-left: 2px solid #eee;
-      padding: 2rem;
-      // border-radius: 35px;
+   }
 
-      height: 80vh;
+   .ori {
+      gap: 48px;
+      display: grid;
+      grid-template-columns: 1fr 25rem;
 
-      .del {
-        padding-bottom: 5rem;
-        .ship {
-          font-size: 17px;
-          margin-bottom: 10px;
-          font-weight: 500;
-        }
-        .items {
-          font-size: 40px;
-          font-weight: 500;
-          margin-bottom: 37px;
-        }
-        .package {
-          font-size: 16px;
-        }
-        .delDate {
-          font-size: 20px;
-        }
+      .left {
+         .cards {
+            gap: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+
+            margin-top: 1rem;
+
+            .card {
+               display: flex;
+               // box-shadow: 0px 2px 15px #eee;
+               border: 1px solid #eee;
+               cursor: pointer;
+               height: 10rem;
+               border-radius: 1.5rem;
+
+               img {
+                  width: 40%;
+                  height: 100%;
+
+                  object-fit: cover;
+
+                  border-top-left-radius: inherit;
+                  border-bottom-left-radius: inherit;
+               }
+
+               .info {
+                  padding: 1.1rem;
+                  width: 100%;
+
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+
+                  .title {
+                     color: black;
+                     font-size: 18px;
+                     font-weight: 600;
+                  }
+
+                  .other {
+                     opacity: 0.5;
+                     .basic {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        font-size: 14px;
+                        font-weight: 500;
+                        margin-top: 1rem;
+                     }
+
+                     .date {
+                        font-size: 16px;
+                        font-weight: 400;
+                     }
+
+                     .status {
+                        font-weight: 500;
+                        font-size: 16px;
+                     }
+                  }
+               }
+            }
+         }
       }
+      .right {
+         // box-shadow: 0px 2px 15px #eee;
+         border-left: 2px solid #eee;
+         padding: 2rem;
+         // border-radius: 35px;
 
-      .sections {
-        .section {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 1.5rem;
+         height: 80vh;
 
-          .box {
-            gap: 0.8rem;
-            display: flex;
+         .del {
+            padding-bottom: 5rem;
+            .ship {
+               font-size: 17px;
+               margin-bottom: 10px;
+               font-weight: 500;
+            }
+            .items {
+               font-size: 40px;
+               font-weight: 500;
+               margin-bottom: 37px;
+            }
+            .package {
+               font-size: 16px;
+            }
+            .delDate {
+               font-size: 20px;
+            }
+         }
 
-            i {
-              color: green;
+         .sections {
+            .section {
+               display: flex;
+               justify-content: space-between;
+               margin-bottom: 1.5rem;
+
+               .box {
+                  gap: 0.8rem;
+                  display: flex;
+
+                  i {
+                     color: green;
+                  }
+
+                  .title {
+                     white-space: nowrap;
+                     &.active {
+                        font-weight: 500;
+                     }
+                  }
+               }
+            }
+         }
+
+         .rate {
+            margin-top: 5rem;
+
+            .rateOrder {
+               font-size: 25px;
+               margin-top: 3%;
             }
 
-            .title {
-              white-space: nowrap;
-              &.active {
-                font-weight: 500;
-              }
+            .ratings {
+               margin-top: 1rem;
+               .rating {
+                  gap: 2rem;
+                  display: flex;
+                  margin-top: 0.5rem;
+
+                  .stars {
+                     i {
+                        margin-right: 4px;
+                     }
+                  }
+               }
             }
-          }
-        }
+         }
       }
-
-      .rate {
-        margin-top: 5rem;
-
-        .rateOrder {
-          font-size: 25px;
-          margin-top: 3%;
-        }
-
-        .ratings {
-          margin-top: 1rem;
-          .rating {
-            gap: 2rem;
-            display: flex;
-            margin-top: 0.5rem;
-
-            .stars {
-              i {
-                margin-right: 4px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+   }
 }

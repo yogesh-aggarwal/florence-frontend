@@ -4,32 +4,32 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+   margin: 0;
+   padding: 0;
 }
 
 * {
-  font-family: "Poppins";
-  box-sizing: border-box;
-  transition: all 150ms ease-in-out;
+   font-family: "Poppins";
+   box-sizing: border-box;
+   transition: all 150ms ease-in-out;
 }
 
 i {
-  margin-top: 1px;
+   margin-top: 1px;
 }
 
 input {
-  accent-color: #000;
+   accent-color: #000;
 
-  &[type="checkbox"] {
-    cursor: pointer;
-  }
+   &[type="checkbox"] {
+      cursor: pointer;
+   }
 }
 .img {
-  display: flex;
+   display: flex;
 
-  img {
-    height: 45rem;
-    width: 110rem;
-  }
+   img {
+      height: 45rem;
+      width: 110rem;
+   }
 }
