@@ -6,6 +6,6 @@ export namespace Platform {
       const res = await new API().get<{ data: PlatformHomeSection_t }>(`/platform/home`)
       if (!res) return null
 
-      return res.data
+      return res.data.data
    }
 }

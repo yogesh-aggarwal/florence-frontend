@@ -1,6 +1,5 @@
 import "./Topbar.scss"
 
-import Logo from "../Assets/logo.png"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { cartStore, useCart, useUser } from "../Lib/State"
 import { useEffect, useState } from "react"
@@ -31,7 +30,7 @@ export default function Topbar() {
                }}
             >
                <div id="logo">
-                  <img src={Logo} alt="" />
+                  <img src="/logo.png" alt="" />
                </div>
                {/* <div id="florence">Florence</div> */}
                <div id="florence">Florence</div>

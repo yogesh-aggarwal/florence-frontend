@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom"
 import { IMAGES } from "../Lib/Constants"
 import { userStore } from "../Lib/State"
 import { networkRequest } from "../Lib/helpers"
-import Logo from "../Assets/logo.png"
 import { API } from "../Lib/API"
 import { User_t } from "../Lib/Types/user"
 
@@ -25,7 +24,7 @@ export default function Login() {
          <div id="login">
             <div id="header">
                <div id="logo">
-                  <img src={Logo} alt="this is our logo" />
+                  <img src="/logo.png" alt="this is our logo" />
                </div>
                <div id="name">Florence</div>
             </div>

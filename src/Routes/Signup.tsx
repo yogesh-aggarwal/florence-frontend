@@ -4,7 +4,6 @@ import "./Signup.scss"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { userStore } from "../Lib/State"
-import Logo from "../Assets/logo.png"
 // const { useEffect, useState } = require("react");
 
 const IMAGES = [
@@ -38,7 +37,7 @@ export default function Signup() {
             <div id="login">
                <div id="header">
                   <div id="logo">
-                     <img src={Logo} alt="this is our logo" />
+                     <img src="/logo.png" alt="this is our logo" />
                   </div>
                   <div id="name">Florence</div>
                </div>
