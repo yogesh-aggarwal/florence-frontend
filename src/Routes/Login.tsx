@@ -7,6 +7,8 @@ import { IMAGES } from "../Lib/Constants"
 import { userStore } from "../Lib/State"
 import { networkRequest } from "../Lib/helpers"
 import Logo from "../Assets/logo.png"
+import { API } from "../Lib/API"
+import { User_t } from "../Lib/Types/user"
 
 export default function Login() {
    const navigate = useNavigate()
@@ -99,29 +101,20 @@ export default function Login() {
                      id="login2"
                      onClick={async () => {
                         setError("")
-                        const res = await fetch("http://localhost:4000/login", {
-                           method: "POST",
-                           headers: {
-                              "content-type": "application/json",
-                           },
-                           body: JSON.stringify({
-                              email: email,
-                              password: password,
-                           }),
+                        const res = await new API().post<{ token: string; user: User_t }>("/auth/login", {
+                           email: email,
+                           password: password,
                         })
-                        const body = await res.json()
-                        if (res.status === 200) {
-                           localStorage.setItem("token", body["token"])
-                           userStore.set(body["user"])
-                           navigate("/")
-                        } else {
-                           /* Choice 1 */
-                           // setError(body["message"]);
 
-                           /* Choice 2 */
-                           const errorMsg = body["message"]
-                           setError(errorMsg)
+                        console.log(res)
+                        if (!res) {
+                           setError("Some error occured")
+                           return
                         }
+
+                        localStorage.setItem("token", res.data.token)
+                        userStore.set(res.data.user)
+                        navigate("/")
                      }}
                   >
                      <div id="loginText">Log in</div>
