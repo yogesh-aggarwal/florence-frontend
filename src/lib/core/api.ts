@@ -1,6 +1,6 @@
-import { APIResponse } from "./API.types"
+import { APIResponse } from "./api.types"
 
-export class API {
+class API {
    private readonly baseURL: string
 
    constructor() {
@@ -85,3 +85,5 @@ export class API {
       }
    }
 }
+
+export const api = new API()
